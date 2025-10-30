@@ -1,0 +1,2960 @@
+<!DOCTYPE html>
+<html lang="ku" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>پانێڵی بەڕێوەبەری - خوێندنگەی  ئامادەی  هەڵگوردی  تێکەڵ</title>
+<style>
+:root {
+  --primary: #2c3e50;
+  --secondary: #3498db;
+  --accent: #e74c3c;
+  --gold: #f39c12;
+  --light: #ecf0f1;
+  --dark: #2c3e50;
+  --gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  --success: #2ecc71;
+  --warning: #f39c12;
+  --danger: #e74c3c;
+  --admin: #8e44ad;
+  --student: #3498db;
+  --teacher: #e67e22;
+  --staff: #9b59b6;
+  --assistant: #1abc9c;
+  --worker: #e74c3c;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  line-height: 1.6;
+  color: var(--dark);
+  background: #f8f9fa;
+  min-height: 100vh;
+}
+
+.admin-container {
+  display: flex;
+  min-height: 100vh;
+}
+
+/* Sidebar */
+.sidebar {
+  width: 280px;
+  background: var(--primary);
+  color: white;
+  padding: 2rem 0;
+  box-shadow: 2px 0 10px rgba(0,0,0,0.1);
+  position: fixed;
+  height: 100vh;
+  overflow-y: auto;
+}
+
+.school-info {
+  text-align: center;
+  padding: 0 1.5rem 2rem;
+  border-bottom: 1px solid rgba(255,255,255,0.1);
+}
+
+.school-logo {
+  font-size: 1.8rem;
+  font-weight: 800;
+  margin-bottom: 1rem;
+  color: white;
+}
+
+.admin-avatar {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  margin: 0 auto 1rem;
+  background: var(--gradient);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2rem;
+  border: 3px solid white;
+}
+
+.admin-name {
+  font-size: 1.2rem;
+  font-weight: 600;
+}
+
+.admin-role {
+  color: var(--gold);
+  font-size: 0.9rem;
+}
+
+.sidebar-nav {
+  padding: 2rem 0;
+}
+
+.nav-item {
+  padding: 1rem 1.5rem;
+  color: rgba(255,255,255,0.8);
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  transition: all 0.3s ease;
+  border-right: 3px solid transparent;
+  cursor: pointer;
+}
+
+.nav-item:hover, .nav-item.active {
+  background: rgba(255,255,255,0.1);
+  color: white;
+  border-right-color: var(--secondary);
+}
+
+.nav-icon {
+  font-size: 1.2rem;
+  width: 20px;
+}
+
+/* Main Content */
+.main-content {
+  flex: 1;
+  padding: 2rem;
+  margin-right: 280px;
+  overflow-y: auto;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+  padding-bottom: 1rem;
+  border-bottom: 2px solid var(--light);
+}
+
+.welcome-text h1 {
+  color: var(--primary);
+  margin-bottom: 0.5rem;
+}
+
+.welcome-text p {
+  color: #666;
+}
+
+/* Stats Grid */
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.stat-card {
+  background: white;
+  padding: 1.5rem;
+  border-radius: 15px;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+  border-left: 4px solid var(--secondary);
+  transition: transform 0.3s ease;
+  text-align: center;
+}
+
+.stat-card:hover {
+  transform: translateY(-5px);
+}
+
+.stat-card.admin { border-left-color: var(--admin); }
+.stat-card.teacher { border-left-color: var(--teacher); }
+.stat-card.student { border-left-color: var(--student); }
+.stat-card.staff { border-left-color: var(--staff); }
+.stat-card.assistant { border-left-color: var(--assistant); }
+.stat-card.worker { border-left-color: var(--worker); }
+
+.stat-number {
+  font-size: 2.5rem;
+  font-weight: 800;
+  margin-bottom: 0.5rem;
+}
+
+.stat-label {
+  color: #666;
+  font-weight: 600;
+}
+
+/* Quick Actions */
+.quick-actions {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.quick-action-card {
+  background: white;
+  padding: 1.5rem;
+  border-radius: 15px;
+  text-align: center;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+  transition: all 0.3s ease;
+  cursor: pointer;
+  border-top: 4px solid var(--secondary);
+}
+
+.quick-action-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+}
+
+.quick-action-card.admin { border-top-color: var(--admin); }
+.quick-action-card.teacher { border-top-color: var(--teacher); }
+.quick-action-card.student { border-top-color: var(--student); }
+.quick-action-card.staff { border-top-color: var(--staff); }
+
+.action-icon {
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+}
+
+.action-title {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--primary);
+  margin-bottom: 0.5rem;
+}
+
+.action-description {
+  color: #666;
+  font-size: 0.9rem;
+}
+
+/* Management Sections */
+.management-section {
+  background: white;
+  border-radius: 15px;
+  padding: 2rem;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+  margin-bottom: 2rem;
+}
+
+.section-title {
+  font-size: 1.8rem;
+  color: var(--primary);
+  margin-bottom: 1.5rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 2px solid var(--light);
+}
+
+.actions-bar {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+  flex-wrap: wrap;
+}
+
+.btn {
+  padding: 0.8rem 1.5rem;
+  border: none;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.btn-primary {
+  background: var(--secondary);
+  color: white;
+}
+
+.btn-success {
+  background: var(--success);
+  color: white;
+}
+
+.btn-warning {
+  background: var(--warning);
+  color: white;
+}
+
+.btn-danger {
+  background: var(--danger);
+  color: white;
+}
+
+.btn-admin {
+  background: var(--admin);
+  color: white;
+}
+
+.btn-teacher {
+  background: var(--teacher);
+  color: white;
+}
+
+.btn-student {
+  background: var(--student);
+  color: white;
+}
+
+.btn-staff {
+  background: var(--staff);
+  color: white;
+}
+
+.btn-assistant {
+  background: var(--assistant);
+  color: white;
+}
+
+.btn-worker {
+  background: var(--worker);
+  color: white;
+}
+
+.btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+}
+
+/* Cards Grid */
+.cards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 1.5rem;
+  margin-top: 1rem;
+}
+
+.card {
+  background: white;
+  border-radius: 15px;
+  padding: 1.5rem;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+  border-top: 4px solid var(--secondary);
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: var(--gradient);
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+}
+
+.card.admin { border-top-color: var(--admin); }
+.card.teacher { border-top-color: var(--teacher); }
+.card.student { border-top-color: var(--student); }
+.card.staff { border-top-color: var(--staff); }
+.card.assistant { border-top-color: var(--assistant); }
+.card.worker { border-top-color: var(--worker); }
+
+.card-header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.card-avatar {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  color: white;
+}
+
+.card-avatar.admin { background: var(--admin); }
+.card-avatar.teacher { background: var(--teacher); }
+.card-avatar.student { background: var(--student); }
+.card-avatar.staff { background: var(--staff); }
+.card-avatar.assistant { background: var(--assistant); }
+.card-avatar.worker { background: var(--worker); }
+
+.card-title {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--primary);
+  margin: 0;
+}
+
+.card-subtitle {
+  color: #666;
+  font-size: 0.9rem;
+}
+
+.card-content {
+  margin-bottom: 1rem;
+}
+
+.card-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 1rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--light);
+}
+
+.card-actions {
+  display: flex;
+  gap: 0.5rem;
+}
+
+/* Forms */
+.form-group {
+  margin-bottom: 1.5rem;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+  color: var(--primary);
+}
+
+.form-control {
+  width: 100%;
+  padding: 0.8rem 1rem;
+  border: 2px solid var(--light);
+  border-radius: 8px;
+  font-size: 1rem;
+  transition: border-color 0.3s ease;
+  font-family: inherit;
+}
+
+.form-control:focus {
+  outline: none;
+  border-color: var(--secondary);
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+.form-actions {
+  display: flex;
+  gap: 1rem;
+  justify-content: flex-end;
+  margin-top: 2rem;
+  padding-top: 1rem;
+  border-top: 2px solid var(--light);
+}
+
+/* Modal */
+.modal {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.5);
+  z-index: 1000;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+}
+
+.modal-content {
+  background: white;
+  padding: 2rem;
+  border-radius: 15px;
+  width: 100%;
+  max-width: 600px;
+  max-height: 90vh;
+  overflow-y: auto;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+  animation: modalSlideIn 0.3s ease;
+}
+
+@keyframes modalSlideIn {
+  from { opacity: 0; transform: scale(0.9); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+  padding-bottom: 1rem;
+  border-bottom: 2px solid var(--light);
+}
+
+.modal-title {
+  font-size: 1.5rem;
+  color: var(--primary);
+  margin: 0;
+}
+
+.close-modal {
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+  color: #666;
+  padding: 0.5rem;
+  border-radius: 5px;
+}
+
+.close-modal:hover {
+  background: var(--light);
+}
+
+/* Search and Filters */
+.search-box {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.search-input {
+  flex: 1;
+  position: relative;
+  min-width: 250px;
+}
+
+.search-input .form-control {
+  padding-right: 3rem;
+}
+
+.search-icon {
+  position: absolute;
+  right: 1rem;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #666;
+}
+
+.filter-group {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+/* Status Badges */
+.status-badge {
+  padding: 0.4rem 0.8rem;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  display: inline-block;
+}
+
+.status-active {
+  background: #d4edda;
+  color: #155724;
+}
+
+.status-inactive {
+  background: #f8d7da;
+  color: #721c24;
+}
+
+.status-warning {
+  background: #fff3cd;
+  color: #856404;
+}
+
+.role-badge {
+  padding: 0.3rem 0.6rem;
+  border-radius: 15px;
+  font-size: 0.7rem;
+  font-weight: 600;
+  display: inline-block;
+  margin: 0.1rem;
+}
+
+.role-admin { background: var(--admin); color: white; }
+.role-teacher { background: var(--teacher); color: white; }
+.role-assistant { background: var(--assistant); color: white; }
+.role-worker { background: var(--worker); color: white; }
+.role-staff { background: var(--staff); color: white; }
+
+/* Responsive */
+@media (max-width: 1024px) {
+  .sidebar {
+    width: 250px;
+  }
+  
+  .main-content {
+    margin-right: 250px;
+  }
+  
+  .cards-grid {
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  }
+}
+
+@media (max-width: 768px) {
+  .admin-container {
+    flex-direction: column;
+  }
+  
+  .sidebar {
+    position: relative;
+    width: 100%;
+    height: auto;
+  }
+  
+  .main-content {
+    margin-right: 0;
+    padding: 1rem;
+  }
+  
+  .form-row {
+    grid-template-columns: 1fr;
+  }
+  
+  .stats-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  .quick-actions {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  .cards-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .actions-bar {
+    flex-direction: column;
+  }
+  
+  .search-box {
+    flex-direction: column;
+  }
+  
+  .search-input {
+    min-width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  .stats-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .quick-actions {
+    grid-template-columns: 1fr;
+  }
+  
+  .search-box {
+    flex-direction: column;
+  }
+  
+  .search-input, .filter-group select {
+    width: 100%;
+  }
+  
+  .card-actions {
+    flex-direction: column;
+  }
+  
+  .card-actions .btn {
+    width: 100%;
+    justify-content: center;
+  }
+}
+</style>
+</head>
+<body>
+<div class="admin-container">
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <div class="school-info">
+            <div class="school-logo">قوتابخانەی هەڵگوردی ئامادەی</div>
+            <div class="admin-avatar">👨‍💼</div>
+            <div class="admin-name">مەریوان ماغدێد</div>
+            <div class="admin-role">بەڕێوەبەری قوتابخانە</div>
+        </div>
+        
+        <nav class="sidebar-nav">
+            <div class="nav-item active" onclick="switchSection('dashboard')">
+                <span class="nav-icon">📊</span>
+                <span>داشبۆرد</span>
+            </div>
+            <div class="nav-item" onclick="switchSection('admins')">
+                <span class="nav-icon">👨‍💼</span>
+                <span>بەڕێوەبەرەکان</span>
+            </div>
+            <div class="nav-item" onclick="switchSection('teachers')">
+                <span class="nav-icon">👨‍🏫</span>
+                <span>مامۆستایان</span>
+            </div>
+            <div class="nav-item" onclick="switchSection('students')">
+                <span class="nav-icon">👨‍🎓</span>
+                <span>خوێندکاران</span>
+            </div>
+            <div class="nav-item" onclick="switchSection('staff')">
+                <span class="nav-icon">👥</span>
+                <span>ستاف</span>
+            </div>
+        
+            <div class="nav-item" onclick="switchSection('classes')">
+                <span class="nav-icon">📚</span>
+                <span>پەیمانگاکان</span>
+            </div>
+            <div class="nav-item" onclick="switchSection('reports')">
+                <span class="nav-icon">📈</span>
+                <span>ڕاپۆرتەکان</span>
+            </div>
+        </nav>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <div class="header">
+            <div class="welcome-text">
+                <h1 id="pageTitle">داشبۆردی بەڕێوەبەری</h1>
+                <p id="pageSubtitle">ڕۆژێکی باش - <span id="currentDate"></span></p>
+            </div>
+        </div>
+
+        <!-- Dashboard Section -->
+        <div class="section-content active" id="dashboardSection">
+            <!-- Statistics -->
+            <div class="stats-grid">
+                <div class="stat-card admin">
+                    <div class="stat-number" id="totalAdmins">٠</div>
+                    <div class="stat-label">بەڕێوەبەر</div>
+                </div>
+                <div class="stat-card teacher">
+                    <div class="stat-number" id="totalTeachers">٠</div>
+                    <div class="stat-label">مامۆستا</div>
+                </div>
+                <div class="stat-card student">
+                    <div class="stat-number" id="totalStudents">٠</div>
+                    <div class="stat-label">خوێندکار</div>
+                </div>
+                <div class="stat-card staff">
+                    <div class="stat-number" id="totalStaff">٠</div>
+                    <div class="stat-label">ستاف</div>
+                </div>
+            </div>
+
+            <!-- Quick Actions -->
+            <div class="quick-actions">
+                <div class="quick-action-card admin" onclick="switchSection('admins')">
+                    <div class="action-icon">👨‍💼</div>
+                    <div class="action-title">بەڕێوەبەرەکان</div>
+                    <div class="action-description">بەڕێوەبردنی تیمی بەڕێوەبەرایەتی</div>
+                </div>
+                <div class="quick-action-card teacher" onclick="switchSection('teachers')">
+                    <div class="action-icon">👨‍🏫</div>
+                    <div class="action-title">مامۆستایان</div>
+                    <div class="action-description">بەڕێوەبردنی مامۆستایانی قوتابخانە</div>
+                </div>
+                <div class="quick-action-card student" onclick="switchSection('students')">
+                    <div class="action-icon">👨‍🎓</div>
+                    <div class="action-title">خوێندکاران</div>
+                    <div class="action-description">بەڕێوەبردنی خوێندکارانی قوتابخانە</div>
+                </div>
+                <div class="quick-action-card staff" onclick="switchSection('staff')">
+                    <div class="action-icon">👥</div>
+                    <div class="action-title">ستاف</div>
+                    <div class="action-description">بەڕێوەبردنی هەموو جۆرە ستافێک</div>
+                </div>
+            </div>
+
+            <!-- Recent Activity -->
+            <div class="management-section">
+                <h2 class="section-title">چالاکییەکانی دوایی</h2>
+                <div class="cards-grid" id="recentActivity">
+                    <!-- چالاکییە دوایییەکان لێرە دێنەوە -->
+                </div>
+            </div>
+        </div>
+
+        <!-- Admins Section -->
+        <div class="section-content" id="adminsSection">
+            <div class="management-section">
+                <h2 class="section-title">بەڕێوەبردنی بەڕێوەبەرەکان</h2>
+                
+                <div class="actions-bar">
+                    <button class="btn btn-admin" onclick="openModal('addAdminModal')">
+                        <span>➕</span>
+                        زیادکردنی بەڕێوەبەر
+                    </button>
+                    <div class="search-box">
+                        <div class="search-input">
+                            <input type="text" class="form-control" placeholder="گەڕان بەناوی بەڕێوەبەر..." id="searchAdmins">
+                            <span class="search-icon">🔍</span>
+                        </div>
+                        <select class="form-control" style="width: 200px;" id="filterAdminDept">
+                            <option value="">هەموو پۆلەکان</option>
+                            <option value="بەڕێوەبەرایەتی">بەڕێوەبەرایەتی</option>
+                            <option value="ئەکادیمی">ئەکادیمی</option>
+                            <option value="دارایی">دارایی</option>
+                            <option value="تەکنیکی">تەکنیکی</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="cards-grid" id="adminsGrid">
+                    <!-- بەڕێوەبەرەکان لێرە دێنەوە -->
+                </div>
+            </div>
+        </div>
+
+        <!-- Teachers Section -->
+        <div class="section-content" id="teachersSection">
+            <div class="management-section">
+                <h2 class="section-title">بەڕێوەبردنی مامۆستایان</h2>
+                
+                <div class="actions-bar">
+                    <button class="btn btn-teacher" onclick="openModal('addTeacherModal')">
+                        <span>➕</span>
+                        زیادکردنی مامۆستا
+                    </button>
+                    <div class="search-box">
+                        <div class="search-input">
+                            <input type="text" class="form-control" placeholder="گەڕان بەناوی مامۆستا..." id="searchTeachers">
+                            <span class="search-icon">🔍</span>
+                        </div>
+                        <select class="form-control" style="width: 200px;" id="filterTeacherSubject">
+                            <option value="">هەموو بەشەکان</option>
+                            <option value="زانست">زانست</option>
+                            <option value="ریاضی">ریاضی</option>
+                            <option value="کوردی">کوردی</option>
+                            <option value="ئینگلیزی">ئینگلیزی</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="cards-grid" id="teachersGrid">
+                    <!-- مامۆستایان لێرە دێنەوە -->
+                </div>
+            </div>
+        </div>
+
+        <!-- Students Section -->
+        <div class="section-content" id="studentsSection">
+            <div class="management-section">
+                <h2 class="section-title">بەڕێوەبردنی خوێندکاران</h2>
+                
+                <div class="actions-bar">
+                    <button class="btn btn-student" onclick="openModal('addStudentModal')">
+                        <span>➕</span>
+                        زیادکردنی خوێندکار
+                    </button>
+                    <div class="search-box">
+                        <div class="search-input">
+                            <input type="text" class="form-control" placeholder="گەڕان بەناوی خوێندکار..." id="searchStudents">
+                            <span class="search-icon">🔍</span>
+                        </div>
+                        <select class="form-control" style="width: 150px;" id="filterStudentGrade">
+                            <option value="">هەموو پۆلەکان</option>
+                            <option value="10">پۆلی ١٠</option>
+                            <option value="11">پۆلی ١١</option>
+                            <option value="12">پۆلی ١٢</option>
+                        </select>
+                        <select class="form-control" style="width: 150px;" id="filterStudentClass">
+                            <option value="">هەموو پەیمانگاکان</option>
+                            <option value="A">A</option>
+                            <option value="B">B</option>
+                            <option value="C">C</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="cards-grid" id="studentsGrid">
+                    <!-- خوێندکاران لێرە دێنەوە -->
+                </div>
+            </div>
+        </div>
+
+        <!-- Staff Section -->
+        <div class="section-content" id="staffSection">
+            <div class="management-section">
+                <h2 class="section-title">بەڕێوەبردنی ستاف</h2>
+                
+                <div class="actions-bar">
+                    <button class="btn btn-staff" onclick="openModal('addStaffModal')">
+                        <span>➕</span>
+                        زیادکردنی ستاف
+                    </button>
+                    <div class="search-box">
+                        <div class="search-input">
+                            <input type="text" class="form-control" placeholder="گەڕان بەناوی ستاف..." id="searchStaff">
+                            <span class="search-icon">🔍</span>
+                        </div>
+                        <select class="form-control" style="width: 200px;" id="filterStaffType">
+                            <option value="">هەموو جۆرەکان</option>
+                            <option value="مامۆستا">مامۆستا</option>
+                            <option value="بەڕێوەبەر">بەڕێوەبەر</option>
+                            <option value="یاریدەدەر">یاریدەدەر</option>
+                            <option value="کارمەند">کارمەند</option>
+                            <option value="تەکنیسێن">تەکنیسێن</option>
+                            <option value="پارێزەر">پارێزەر</option>
+                            <option value="پاککەرەوە">پاککەرەوە</option>
+                        </select>
+                        <select class="form-control" style="width: 200px;" id="filterStaffDept">
+                            <option value="">هەموو پۆلەکان</option>
+                            <option value="بەڕێوەبەرایەتی">بەڕێوەبەرایەتی</option>
+                            <option value="ئەکادیمی">ئەکادیمی</option>
+                            <option value="پشتیوانی">پشتیوانی</option>
+                            <option value="تەکنیکی">تەکنیکی</option>
+                            <option value="پارێزگاری">پارێزگاری</option>
+                            <option value="پاککردنەوە">پاککردنەوە</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="cards-grid" id="staffGrid">
+                    <!-- ستاف لێرە دێنەوە -->
+                </div>
+            </div>
+        </div>
+
+        <!-- Classes Section -->
+        <div class="section-content" id="classesSection">
+            <div class="management-section">
+                <h2 class="section-title">بەڕێوەبردنی پەیمانگاکان</h2>
+                
+                <div class="actions-bar">
+                    <button class="btn btn-primary" onclick="openModal('addClassModal')">
+                        <span>➕</span>
+                        زیادکردنی پەیمانگا
+                    </button>
+                    <div class="search-box">
+                        <div class="search-input">
+                            <input type="text" class="form-control" placeholder="گەڕان بەناوی پەیمانگا..." id="searchClasses">
+                            <span class="search-icon">🔍</span>
+                        </div>
+                        <select class="form-control" style="width: 150px;" id="filterClassGrade">
+                            <option value="">هەموو پۆلەکان</option>
+                            <option value="10">پۆلی ١٠</option>
+                            <option value="11">پۆلی ١١</option>
+                            <option value="12">پۆلی ١٢</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="cards-grid" id="classesGrid">
+                    <!-- پەیمانگاکان لێرە دێنەوە -->
+                </div>
+            </div>
+        </div>
+
+        <!-- Reports Section -->
+        <div class="section-content" id="reportsSection">
+            <div class="management-section">
+                <h2 class="section-title">ڕاپۆرت و ئامار</h2>
+                
+                <div class="actions-bar">
+                    <button class="btn btn-success" onclick="generateOverallReport()">
+                        <span>📊</span>
+                        ڕاپۆرتی گشتی
+                    </button>
+                    <button class="btn btn-primary" onclick="exportAllData()">
+                        <span>📥</span>
+                        هێنانەوەی هەموو زانیارییەکان
+                    </button>
+                    <button class="btn btn-warning" onclick="generateStaffReport()">
+                        <span>👥</span>
+                        ڕاپۆرتی ستاف
+                    </button>
+                </div>
+
+                <div class="cards-grid">
+                    <div class="card admin">
+                        <div class="card-header">
+                            <div class="card-avatar admin">📈</div>
+                            <div>
+                                <h3 class="card-title">ڕاپۆرتی بەڕێوەبەرەکان</h3>
+                                <div class="card-subtitle">زانیاری تەواو</div>
+                            </div>
+                        </div>
+                        <div class="card-content">
+                            <p><strong>کۆی گشتی:</strong> <span id="reportAdmins">٠</span> بەڕێوەبەر</p>
+                            <p><strong>چالاک:</strong> <span id="reportActiveAdmins">٠</span> | <strong>نەچالاک:</strong> <span id="reportInactiveAdmins">٠</span></p>
+                            <p><strong>پۆلەکان:</strong> <span id="reportAdminDepts">٠</span> پۆل</p>
+                        </div>
+                        <div class="card-meta">
+                            <button class="btn btn-primary" onclick="generateAdminReport()">بینینی ڕاپۆرت</button>
+                        </div>
+                    </div>
+
+                    <div class="card teacher">
+                        <div class="card-header">
+                            <div class="card-avatar teacher">📊</div>
+                            <div>
+                                <h3 class="card-title">ڕاپۆرتی مامۆستایان</h3>
+                                <div class="card-subtitle">زانیاری پەروەردەیی</div>
+                            </div>
+                        </div>
+                        <div class="card-content">
+                            <p><strong>کۆی گشتی:</strong> <span id="reportTeachers">٠</span> مامۆستا</p>
+                            <p><strong>بەشەکان:</strong> <span id="reportTeacherSubjects">٠</span> بەش</p>
+                            <p><strong>ساڵی خزمەت:</strong> <span id="reportTeacherExperience">٠</span> ساڵ</p>
+                        </div>
+                        <div class="card-meta">
+                            <button class="btn btn-primary" onclick="generateTeacherReport()">بینینی ڕاپۆرت</button>
+                        </div>
+                    </div>
+
+                    <div class="card student">
+                        <div class="card-header">
+                            <div class="card-avatar student">📋</div>
+                            <div>
+                                <h3 class="card-title">ڕاپۆرتی خوێندکاران</h3>
+                                <div class="card-subtitle">زانیاری خوێندکاران</div>
+                            </div>
+                        </div>
+                        <div class="card-content">
+                            <p><strong>کۆی گشتی:</strong> <span id="reportStudents">٠</span> خوێندکار</p>
+                            <p><strong>پۆلەکان:</strong> <span id="reportStudentGrades">٠</span> پۆل</p>
+                            <p><strong>پەیمانگاکان:</strong> <span id="reportStudentClasses">٠</span> پەیمانگا</p>
+                        </div>
+                        <div class="card-meta">
+                            <button class="btn btn-primary" onclick="generateStudentReport()">بینینی ڕاپۆرت</button>
+                        </div>
+                    </div>
+
+                    <div class="card staff">
+                        <div class="card-header">
+                            <div class="card-avatar staff">📄</div>
+                            <div>
+                                <h3 class="card-title">ڕاپۆرتی ستاف</h3>
+                                <div class="card-subtitle">زانیاری هەموو ستافەکان</div>
+                            </div>
+                        </div>
+                        <div class="card-content">
+                            <p><strong>کۆی گشتی:</strong> <span id="reportStaff">٠</span> ستاف</p>
+                            <p><strong>جۆرەکان:</strong> <span id="reportStaffTypes">٠</span> جۆر</p>
+                            <p><strong>پۆلەکان:</strong> <span id="reportStaffDepts">٠</span> پۆل</p>
+                        </div>
+                        <div class="card-meta">
+                            <button class="btn btn-primary" onclick="generateStaffReport()">بینینی ڕاپۆرت</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Add Admin Modal -->
+<div id="addAdminModal" class="modal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h2 class="modal-title" id="adminModalTitle">زیادکردنی بەڕێوەبەری نوێ</h2>
+            <button class="close-modal" onclick="closeModal('addAdminModal')">✕</button>
+        </div>
+        
+        <form id="adminForm">
+            <input type="hidden" id="editAdminId">
+            
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="adminName">ناوی تەواو</label>
+                    <input type="text" id="adminName" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label for="adminRole">پۆست</label>
+                    <input type="text" id="adminRole" class="form-control" required>
+                </div>
+            </div>
+            
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="adminDepartment">پۆل</label>
+                    <select id="adminDepartment" class="form-control" required>
+                        <option value="">پۆل هەڵبژێرە</option>
+                        <option value="بەڕێوەبەرایەتی">بەڕێوەبەرایەتی</option>
+                        <option value="ئەکادیمی">ئەکادیمی</option>
+                        <option value="دارایی">دارایی</option>
+                        <option value="تەکنیکی">تەکنیکی</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="adminAvatar">ئایکۆن</label>
+                    <select id="adminAvatar" class="form-control" required>
+                        <option value="👨‍💼">👨‍💼 بەڕێوەبەر</option>
+                        <option value="👩‍💼">👩‍💼 بەڕێوەبەر</option>
+                        <option value="👨‍🎓">👨‍🎓 ئەکادیمی</option>
+                        <option value="👩‍🎓">👩‍🎓 ئەکادیمی</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="adminPhone">ژمارەی مۆبایل</label>
+                    <input type="tel" id="adminPhone" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label for="adminEmail">ئیمێل</label>
+                    <input type="email" id="adminEmail" class="form-control" required>
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label for="adminBio">زانیاری</label>
+                <textarea id="adminBio" class="form-control" rows="3" required></textarea>
+            </div>
+
+            <div class="form-group">
+                <label for="adminStatus">بار</label>
+                <select id="adminStatus" class="form-control" required>
+                    <option value="active">چالاک</option>
+                    <option value="inactive">نەچالاک</option>
+                </select>
+            </div>
+            
+            <div class="form-actions">
+                <button type="submit" class="btn btn-primary">پاشەکەوتکردن</button>
+                <button type="button" class="btn btn-danger" onclick="closeModal('addAdminModal')">پاشگەزبوونەوە</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- Add Teacher Modal -->
+<div id="addTeacherModal" class="modal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h2 class="modal-title" id="teacherModalTitle">زیادکردنی مامۆستای نوێ</h2>
+            <button class="close-modal" onclick="closeModal('addTeacherModal')">✕</button>
+        </div>
+        
+        <form id="teacherForm">
+            <input type="hidden" id="editTeacherId">
+            
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="teacherName">ناوی تەواو</label>
+                    <input type="text" id="teacherName" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label for="teacherSubject">بەش</label>
+                    <select id="teacherSubject" class="form-control" required>
+                        <option value="">بەش هەڵبژێرە</option>
+                        <option value="زانست">زانست</option>
+                        <option value="ریاضی">ریاضی</option>
+                        <option value="کوردی">کوردی</option>
+                        <option value="ئینگلیزی">ئینگلیزی</option>
+                        <option value="مێژوو">مێژوو</option>
+                        <option value="جیۆگرافیا">جیۆگرافیا</option>
+                    </select>
+                </div>
+            </div>
+            
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="teacherExperience">ساڵی خزمەت</label>
+                    <input type="number" id="teacherExperience" class="form-control" required min="0">
+                </div>
+                <div class="form-group">
+                    <label for="teacherAvatar">ئایکۆن</label>
+                    <select id="teacherAvatar" class="form-control" required>
+                        <option value="👨‍🏫">👨‍🏫 مامۆستا</option>
+                        <option value="👩‍🏫">👩‍🏫 مامۆستا</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="teacherPhone">ژمارەی مۆبایل</label>
+                    <input type="tel" id="teacherPhone" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label for="teacherEmail">ئیمێل</label>
+                    <input type="email" id="teacherEmail" class="form-control" required>
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label for="teacherBio">زانیاری</label>
+                <textarea id="teacherBio" class="form-control" rows="3" required></textarea>
+            </div>
+            
+            <div class="form-actions">
+                <button type="submit" class="btn btn-primary">پاشەکەوتکردن</button>
+                <button type="button" class="btn btn-danger" onclick="closeModal('addTeacherModal')">پاشگەزبوونەوە</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- Add Student Modal -->
+<div id="addStudentModal" class="modal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h2 class="modal-title" id="studentModalTitle">زیادکردنی خوێندکاری نوێ</h2>
+            <button class="close-modal" onclick="closeModal('addStudentModal')">✕</button>
+        </div>
+        
+        <form id="studentForm">
+            <input type="hidden" id="editStudentId">
+            
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="studentName">ناوی تەواو</label>
+                    <input type="text" id="studentName" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label for="studentAvatar">ئایکۆن</label>
+                    <select id="studentAvatar" class="form-control" required>
+                        <option value="👨‍🎓">👨‍🎓 خوێندکار</option>
+                        <option value="👩‍🎓">👩‍🎓 خوێندکار</option>
+                    </select>
+                </div>
+            </div>
+            
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="studentGrade">پۆل</label>
+                    <select id="studentGrade" class="form-control" required>
+                        <option value="">پۆل هەڵبژێرە</option>
+                        <option value="10">پۆلی ١٠</option>
+                        <option value="11">پۆلی ١١</option>
+                        <option value="12">پۆلی ١٢</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="studentClass">پەیمانگا</label>
+                    <select id="studentClass" class="form-control" required>
+                        <option value="">پەیمانگا هەڵبژێرە</option>
+                        <option value="A">A</option>
+                        <option value="B">B</option>
+                        <option value="C">C</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="studentPhone">ژمارەی مۆبایل</label>
+                    <input type="tel" id="studentPhone" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label for="studentEmail">ئیمێل</label>
+                    <input type="email" id="studentEmail" class="form-control" required>
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label for="studentAddress">ناونیشان</label>
+                <textarea id="studentAddress" class="form-control" rows="2" required></textarea>
+            </div>
+
+            <div class="form-group">
+                <label for="studentParent">ناوی دایک یان باوک</label>
+                <input type="text" id="studentParent" class="form-control" required>
+            </div>
+            
+            <div class="form-actions">
+                <button type="submit" class="btn btn-primary">پاشەکەوتکردن</button>
+                <button type="button" class="btn btn-danger" onclick="closeModal('addStudentModal')">پاشگەزبوونەوە</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- Add Staff Modal -->
+<div id="addStaffModal" class="modal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h2 class="modal-title" id="staffModalTitle">زیادکردنی ستافی نوێ</h2>
+            <button class="close-modal" onclick="closeModal('addStaffModal')">✕</button>
+        </div>
+        
+        <form id="staffForm">
+            <input type="hidden" id="editStaffId">
+            
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="staffName">ناوی تەواو</label>
+                    <input type="text" id="staffName" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label for="staffType">جۆری ستاف</label>
+                    <select id="staffType" class="form-control" required onchange="updateStaffRoleSuggestions()">
+                        <option value="">جۆر هەڵبژێرە</option>
+                        <option value="مامۆستا">مامۆستا</option>
+                        <option value="بەڕێوەبەر">بەڕێوەبەر</option>
+                        <option value="یاریدەدەر">یاریدەدەر</option>
+                        <option value="کارمەند">کارمەند</option>
+                        <option value="تەکنیسێن">تەکنیسێن</option>
+                        <option value="پارێزەر">پارێزەر</option>
+                        <option value="پاککەرەوە">پاککەرەوە</option>
+                    </select>
+                </div>
+            </div>
+            
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="staffRole">پۆست</label>
+                    <input type="text" id="staffRole" class="form-control" required list="roleSuggestions">
+                    <datalist id="roleSuggestions">
+                        <option value="مامۆستای زانست">
+                        <option value="مامۆستای ریاضی">
+                        <option value="بەڕێوەبەری قوتابخانە">
+                        <option value="جێبەڕێوەبەر">
+                        <option value="یاریدەدەری ئەدمین">
+                        <option value="یاریدەدەری پەروەردەیی">
+                        <option value="کارمەندی پشتیوانی">
+                        <option value="تەکنیسێنی کۆمپیوتەر">
+                        <option value="پارێزەری قوتابخانە">
+                        <option value="پاککەرەوە">
+                    </datalist>
+                </div>
+                <div class="form-group">
+                    <label for="staffDepartment">پۆل</label>
+                    <select id="staffDepartment" class="form-control" required>
+                        <option value="">پۆل هەڵبژێرە</option>
+                        <option value="بەڕێوەبەرایەتی">بەڕێوەبەرایەتی</option>
+                        <option value="ئەکادیمی">ئەکادیمی</option>
+                        <option value="پشتیوانی">پشتیوانی</option>
+                        <option value="تەکنیکی">تەکنیکی</option>
+                        <option value="پارێزگاری">پارێزگاری</option>
+                        <option value="پاککردنەوە">پاککردنەوە</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="staffPhone">ژمارەی مۆبایل</label>
+                    <input type="tel" id="staffPhone" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label for="staffEmail">ئیمێل</label>
+                    <input type="email" id="staffEmail" class="form-control">
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="staffSalary">مووچە</label>
+                    <input type="number" id="staffSalary" class="form-control" placeholder="بە دینار">
+                </div>
+                <div class="form-group">
+                    <label for="staffAvatar">ئایکۆن</label>
+                    <select id="staffAvatar" class="form-control" required>
+                        <option value="👨‍🏫">👨‍🏫 مامۆستا</option>
+                        <option value="👩‍🏫">👩‍🏫 مامۆستا</option>
+                        <option value="👨‍💼">👨‍💼 بەڕێوەبەر</option>
+                        <option value="👩‍💼">👩‍💼 بەڕێوەبەر</option>
+                        <option value="👨‍💻">👨‍💻 یاریدەدەر</option>
+                        <option value="👩‍💻">👩‍💻 یاریدەدەر</option>
+                        <option value="👨‍🔧">👨‍🔧 تەکنیسێن</option>
+                        <option value="👩‍🔧">👩‍🔧 تەکنیسێن</option>
+                        <option value="👮‍♂️">👮‍♂️ پارێزەر</option>
+                        <option value="👷‍♂️">👷‍♂️ کارمەند</option>
+                        <option value="🧹">🧹 پاککەرەوە</option>
+                    </select>
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label for="staffBio">زانیاری</label>
+                <textarea id="staffBio" class="form-control" rows="3" required></textarea>
+            </div>
+
+            <div class="form-group">
+                <label for="staffStatus">بار</label>
+                <select id="staffStatus" class="form-control" required>
+                    <option value="active">چالاک</option>
+                    <option value="inactive">نەچالاک</option>
+                    <option value="vacation">پشوو</option>
+                </select>
+            </div>
+            
+            <div class="form-actions">
+                <button type="submit" class="btn btn-primary">پاشەکەوتکردن</button>
+                <button type="button" class="btn btn-danger" onclick="closeModal('addStaffModal')">پاشگەزبوونەوە</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script>
+// سیستمێکی بەڕێوەبردنی تەواوی قوتابخانە
+class SchoolManagementSystem {
+    constructor() {
+        this.currentEditId = null;
+        this.currentEditType = null;
+        this.loadAllData();
+        this.renderAllContent();
+        this.setupEventListeners();
+        this.updateDate();
+    }
+    
+    // هێنانەوەی هەموو زانیارییەکان
+    loadAllData() {
+        this.admins = JSON.parse(localStorage.getItem('schoolAdmins') || '[]');
+        this.teachers = JSON.parse(localStorage.getItem('schoolTeachers') || '[]');
+        this.students = JSON.parse(localStorage.getItem('schoolStudents') || '[]');
+        this.staff = JSON.parse(localStorage.getItem('schoolStaff') || '[]');
+        this.classes = JSON.parse(localStorage.getItem('schoolClasses') || '[]');
+        
+        // دروستکردنی زانیارییە بنەڕەتییەکان ئەگەر بەتاڵ بن
+        if (this.staff.length === 0) {
+            this.initializeSampleData();
+        }
+    }
+    
+    // دروستکردنی زانیارییە نموونەییەکان
+    initializeSampleData() {
+        this.admins = [
+            {
+                id: 1,
+                name: "مەریوان مەغدێد",
+                role: "بەڕێوەبەری قوتابخانە",
+                department: "بەڕێوەبەرایەتی",
+                avatar: "👨‍💼",
+                phone: "٠٧٥٠ ١٢٣ ٤٥٦٧",
+                email: "mariwan@halgordi.edu.krd",
+                bio: "بە تەمەنی ١٠ ساڵ لە بوارەی خوێندنی باڵا کاردەکات. پڕۆفیسۆر لە زانستی پەروەردە.",
+                status: "active"
+            }
+        ];
+        
+        this.teachers = [
+            {
+                id: 1,
+                name: "مامۆستا نێمونا",
+                subject: "زانست",
+                experience: 8,
+                avatar: "👩‍🏫",
+                phone: "٠٧٥٠ ٣٣٣ ٤٤٤٤",
+                email: "nermin@teacher.edu.krd",
+                bio: "مامۆستایەکی شارەزا لە زانستە جۆراوجۆرەکان"
+            }
+        ];
+        
+        this.students = [
+            {
+                id: 1,
+                name: "هەڤال عەبدوڵڵا",
+                grade: "10",
+                class: "A",
+                avatar: "👨‍🎓",
+                phone: "٠٧٥٠ ١١١ ٢٢٢٢",
+                email: "haval@student.edu.krd",
+                address: "هەولێر, کوردستان",
+                parent: "عەبدوڵڵا محەممەد"
+            }
+        ];
+        
+        this.staff = [
+            {
+                id: 1,
+                name: "مامۆستا نێمونا",
+                type: "مامۆستا",
+                role: "مامۆستای زانست",
+                department: "ئەکادیمی",
+                avatar: "👩‍🏫",
+                phone: "٠٧٥٠ ٣٣٣ ٤٤٤٤",
+                email: "nermin@teacher.edu.krd",
+                salary: "٨٠٠٠٠٠",
+                bio: "مامۆستایەکی شارەزا لە زانستە جۆراوجۆرەکان",
+                status: "active"
+            },
+            {
+                id: 2,
+                name: "مەریوان مەغدێد",
+                type: "بەڕێوەبەر",
+                role: "بەڕێوەبەری قوتابخانە",
+                department: "بەڕێوەبەرایەتی",
+                avatar: "👨‍💼",
+                phone: "٠٧٥٠ ١٢٣ ٤٥٦٧",
+                email: "mariwan@halgordi.edu.krd",
+                salary: "١٢٠٠٠٠٠",
+                bio: "بە تەمەنی ١٠ ساڵ لە بوارەی خوێندنی باڵا کاردەکات",
+                status: "active"
+            },
+            {
+                id: 3,
+                name: "یاریدەدەر عەبدوڵڵا",
+                type: "یاریدەدەر",
+                role: "یاریدەدەری ئەدمین",
+                department: "پشتیوانی",
+                avatar: "👨‍💻",
+                phone: "٠٧٥٠ ٥٥٥ ٦٦٦٦",
+                email: "admin@halgordi.edu.krd",
+                salary: "٦٠٠٠٠٠",
+                bio: "چاودێری شارەزا لە کاروباری قوتابخانە",
+                status: "active"
+            }
+        ];
+        
+        this.classes = [
+            {
+                id: 1,
+                name: "١٠-A",
+                grade: "10",
+                section: "A",
+                teacher: "مامۆستا نێمونا",
+                students: 25,
+                subject: "زانست"
+            }
+        ];
+        
+        this.saveAllData();
+    }
+    
+    // پاشەکەوتکردنی هەموو زانیارییەکان
+    saveAllData() {
+        localStorage.setItem('schoolAdmins', JSON.stringify(this.admins));
+        localStorage.setItem('schoolTeachers', JSON.stringify(this.teachers));
+        localStorage.setItem('schoolStudents', JSON.stringify(this.students));
+        localStorage.setItem('schoolStaff', JSON.stringify(this.staff));
+        localStorage.setItem('schoolClasses', JSON.stringify(this.classes));
+        this.updateStats();
+        this.updateReports();
+    }
+    
+    // زیادکردنی بەڕێوەبەری نوێ
+    addAdmin(adminData) {
+        const newAdmin = {
+            id: Date.now(),
+            ...adminData
+        };
+        
+        this.admins.push(newAdmin);
+        this.saveAllData();
+        this.renderAdmins();
+        return newAdmin;
+    }
+    
+    // زیادکردنی مامۆستای نوێ
+    addTeacher(teacherData) {
+        const newTeacher = {
+            id: Date.now(),
+            ...teacherData
+        };
+        
+        this.teachers.push(newTeacher);
+        this.saveAllData();
+        this.renderTeachers();
+        return newTeacher;
+    }
+    
+    // زیادکردنی خوێندکاری نوێ
+    addStudent(studentData) {
+        const newStudent = {
+            id: Date.now(),
+            ...studentData
+        };
+        
+        this.students.push(newStudent);
+        this.saveAllData();
+        this.renderStudents();
+        return newStudent;
+    }
+    
+    // زیادکردنی ستافی نوێ
+    addStaff(staffData) {
+        const newStaff = {
+            id: Date.now(),
+            ...staffData
+        };
+        
+        this.staff.push(newStaff);
+        this.saveAllData();
+        this.renderStaff();
+        return newStaff;
+    }
+    
+    // نوێکردنەوەی بەڕێوەبەر
+    updateAdmin(adminId, adminData) {
+        const index = this.admins.findIndex(admin => admin.id === adminId);
+        if (index !== -1) {
+            this.admins[index] = { ...this.admins[index], ...adminData };
+            this.saveAllData();
+            this.renderAdmins();
+            return true;
+        }
+        return false;
+    }
+    
+    // نوێکردنەوەی ستاف
+    updateStaff(staffId, staffData) {
+        const index = this.staff.findIndex(staff => staff.id === staffId);
+        if (index !== -1) {
+            this.staff[index] = { ...this.staff[index], ...staffData };
+            this.saveAllData();
+            this.renderStaff();
+            return true;
+        }
+        return false;
+    }
+    
+    // سڕینەوەی بەڕێوەبەر
+    deleteAdmin(adminId) {
+        if (confirm('دڵنیای لە سڕینەوەی ئەم بەڕێوەبەرە؟')) {
+            this.admins = this.admins.filter(admin => admin.id !== adminId);
+            this.saveAllData();
+            this.renderAdmins();
+        }
+    }
+    
+    // سڕینەوەی مامۆستا
+    deleteTeacher(teacherId) {
+        if (confirm('دڵنیای لە سڕینەوەی ئەم مامۆستایە؟')) {
+            this.teachers = this.teachers.filter(teacher => teacher.id !== teacherId);
+            this.saveAllData();
+            this.renderTeachers();
+        }
+    }
+    
+    // سڕینەوەی خوێندکار
+    deleteStudent(studentId) {
+        if (confirm('دڵنیای لە سڕینەوەی ئەم خوێندکارە؟')) {
+            this.students = this.students.filter(student => student.id !== studentId);
+            this.saveAllData();
+            this.renderStudents();
+        }
+    }
+    
+    // سڕینەوەی ستاف
+    deleteStaff(staffId) {
+        if (confirm('دڵنیای لە سڕینەوەی ئەم ستافە؟')) {
+            this.staff = this.staff.filter(staff => staff.id !== staffId);
+            this.saveAllData();
+            this.renderStaff();
+        }
+    }
+    
+    // نیشاندانی هەموو ناوەڕۆکەکان
+    renderAllContent() {
+        this.renderAdmins();
+        this.renderTeachers();
+        this.renderStudents();
+        this.renderStaff();
+        this.renderClasses();
+        this.renderRecentActivity();
+        this.updateStats();
+        this.updateReports();
+    }
+    
+    // نیشاندانی بەڕێوەبەرەکان
+    renderAdmins() {
+        const grid = document.getElementById('adminsGrid');
+        const searchTerm = document.getElementById('searchAdmins').value.toLowerCase();
+        const filterDept = document.getElementById('filterAdminDept').value;
+        
+        let filteredAdmins = this.admins.filter(admin => 
+            admin.name.toLowerCase().includes(searchTerm) &&
+            (filterDept === '' || admin.department === filterDept)
+        );
+        
+        grid.innerHTML = '';
+        
+        filteredAdmins.forEach(admin => {
+            const card = document.createElement('div');
+            card.className = 'card admin';
+            card.innerHTML = `
+                <div class="card-header">
+                    <div class="card-avatar admin">${admin.avatar}</div>
+                    <div>
+                        <h3 class="card-title">${admin.name}</h3>
+                        <div class="card-subtitle">${admin.role}</div>
+                    </div>
+                </div>
+                <div class="card-content">
+                    <p><strong>پۆل:</strong> ${admin.department}</p>
+                    <p><strong>مۆبایل:</strong> ${admin.phone}</p>
+                    <p><strong>ئیمێل:</strong> ${admin.email}</p>
+                    <p>${admin.bio}</p>
+                </div>
+                <div class="card-meta">
+                    <span class="status-badge ${admin.status === 'active' ? 'status-active' : 'status-inactive'}">
+                        ${admin.status === 'active' ? 'چالاک' : 'نەچالاک'}
+                    </span>
+                    <div class="card-actions">
+                        <button class="btn btn-warning" onclick="editAdmin(${admin.id})">
+                            <span>✏️</span>
+                            دەستکاری
+                        </button>
+                        <button class="btn btn-danger" onclick="schoolSystem.deleteAdmin(${admin.id})">
+                            <span>🗑️</span>
+                            سڕینەوە
+                        </button>
+                    </div>
+                </div>
+            `;
+            grid.appendChild(card);
+        });
+    }
+    
+    // نیشاندانی مامۆستایان
+    renderTeachers() {
+        const grid = document.getElementById('teachersGrid');
+        const searchTerm = document.getElementById('searchTeachers').value.toLowerCase();
+        const filterSubject = document.getElementById('filterTeacherSubject').value;
+        
+        let filteredTeachers = this.teachers.filter(teacher => 
+            teacher.name.toLowerCase().includes(searchTerm) &&
+            (filterSubject === '' || teacher.subject === filterSubject)
+        );
+        
+        grid.innerHTML = '';
+        
+        filteredTeachers.forEach(teacher => {
+            const card = document.createElement('div');
+            card.className = 'card teacher';
+            card.innerHTML = `
+                <div class="card-header">
+                    <div class="card-avatar teacher">${teacher.avatar}</div>
+                    <div>
+                        <h3 class="card-title">${teacher.name}</h3>
+                        <div class="card-subtitle">مامۆستای ${teacher.subject}</div>
+                    </div>
+                </div>
+                <div class="card-content">
+                    <p><strong>ساڵی خزمەت:</strong> ${teacher.experience} ساڵ</p>
+                    <p><strong>مۆبایل:</strong> ${teacher.phone}</p>
+                    <p><strong>ئیمێل:</strong> ${teacher.email}</p>
+                    <p>${teacher.bio}</p>
+                </div>
+                <div class="card-meta">
+                    <span class="status-badge status-active">چالاک</span>
+                    <div class="card-actions">
+                        <button class="btn btn-warning" onclick="editTeacher(${teacher.id})">
+                            <span>✏️</span>
+                            دەستکاری
+                        </button>
+                        <button class="btn btn-danger" onclick="schoolSystem.deleteTeacher(${teacher.id})">
+                            <span>🗑️</span>
+                            سڕینەوە
+                        </button>
+                    </div>
+                </div>
+            `;
+            grid.appendChild(card);
+        });
+    }
+    
+    // نیشاندانی خوێندکاران
+    renderStudents() {
+        const grid = document.getElementById('studentsGrid');
+        const searchTerm = document.getElementById('searchStudents').value.toLowerCase();
+        const filterGrade = document.getElementById('filterStudentGrade').value;
+        const filterClass = document.getElementById('filterStudentClass').value;
+        
+        let filteredStudents = this.students.filter(student => 
+            student.name.toLowerCase().includes(searchTerm) &&
+            (filterGrade === '' || student.grade === filterGrade) &&
+            (filterClass === '' || student.class === filterClass)
+        );
+        
+        grid.innerHTML = '';
+        
+        filteredStudents.forEach(student => {
+            const card = document.createElement('div');
+            card.className = 'card student';
+            card.innerHTML = `
+                <div class="card-header">
+                    <div class="card-avatar student">${student.avatar}</div>
+                    <div>
+                        <h3 class="card-title">${student.name}</h3>
+                        <div class="card-subtitle">پۆلی ${student.grade} - پەیمانگای ${student.class}</div>
+                    </div>
+                </div>
+                <div class="card-content">
+                    <p><strong>دایک/باوک:</strong> ${student.parent}</p>
+                    <p><strong>مۆبایل:</strong> ${student.phone}</p>
+                    <p><strong>ئیمێل:</strong> ${student.email}</p>
+                    <p><strong>ناونیشان:</strong> ${student.address}</p>
+                </div>
+                <div class="card-meta">
+                    <span class="status-badge status-active">چالاک</span>
+                    <div class="card-actions">
+                        <button class="btn btn-warning" onclick="editStudent(${student.id})">
+                            <span>✏️</span>
+                            دەستکاری
+                        </button>
+                        <button class="btn btn-danger" onclick="schoolSystem.deleteStudent(${student.id})">
+                            <span>🗑️</span>
+                            سڕینەوە
+                        </button>
+                    </div>
+                </div>
+            `;
+            grid.appendChild(card);
+        });
+    }
+    
+    // نیشاندانی ستاف
+    renderStaff() {
+        const grid = document.getElementById('staffGrid');
+        const searchTerm = document.getElementById('searchStaff').value.toLowerCase();
+        const filterType = document.getElementById('filterStaffType').value;
+        const filterDept = document.getElementById('filterStaffDept').value;
+        
+        let filteredStaff = this.staff.filter(staff => 
+            staff.name.toLowerCase().includes(searchTerm) &&
+            (filterType === '' || staff.type === filterType) &&
+            (filterDept === '' || staff.department === filterDept)
+        );
+        
+        grid.innerHTML = '';
+        
+        filteredStaff.forEach(staff => {
+            const cardClass = this.getStaffCardClass(staff.type);
+            const avatarClass = this.getStaffAvatarClass(staff.type);
+            
+            const card = document.createElement('div');
+            card.className = `card ${cardClass}`;
+            card.innerHTML = `
+                <div class="card-header">
+                    <div class="card-avatar ${avatarClass}">${staff.avatar}</div>
+                    <div>
+                        <h3 class="card-title">${staff.name}</h3>
+                        <div class="card-subtitle">${staff.role}</div>
+                        <div style="margin-top: 0.3rem;">
+                            <span class="role-badge ${avatarClass}">${staff.type}</span>
+                            <span class="role-badge" style="background: #95a5a6; color: white;">${staff.department}</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-content">
+                    <p><strong>مۆبایل:</strong> ${staff.phone}</p>
+                    ${staff.email ? `<p><strong>ئیمێل:</strong> ${staff.email}</p>` : ''}
+                    ${staff.salary ? `<p><strong>مووچە:</strong> ${this.formatSalary(staff.salary)} دینار</p>` : ''}
+                    <p style="margin-top: 0.5rem;">${staff.bio}</p>
+                </div>
+                <div class="card-meta">
+                    <span class="status-badge ${this.getStatusClass(staff.status)}">
+                        ${this.getStatusText(staff.status)}
+                    </span>
+                    <div class="card-actions">
+                        <button class="btn btn-warning" onclick="editStaff(${staff.id})">
+                            <span>✏️</span>
+                            دەستکاری
+                        </button>
+                        <button class="btn btn-danger" onclick="schoolSystem.deleteStaff(${staff.id})">
+                            <span>🗑️</span>
+                            سڕینەوە
+                        </button>
+                    </div>
+                </div>
+            `;
+            grid.appendChild(card);
+        });
+    }
+    
+    // نیشاندانی پەیمانگاکان
+    renderClasses() {
+        const grid = document.getElementById('classesGrid');
+        grid.innerHTML = '';
+        
+        this.classes.forEach(classItem => {
+            const card = document.createElement('div');
+            card.className = 'card';
+            card.innerHTML = `
+                <div class="card-header">
+                    <div class="card-avatar" style="background: var(--secondary);">📚</div>
+                    <div>
+                        <h3 class="card-title">${classItem.name}</h3>
+                        <div class="card-subtitle">پۆلی ${classItem.grade}</div>
+                    </div>
+                </div>
+                <div class="card-content">
+                    <p><strong>مامۆستا:</strong> ${classItem.teacher}</p>
+                    <p><strong>خوێندکار:</strong> ${classItem.students} کەس</p>
+                    <p><strong>بەش:</strong> ${classItem.subject}</p>
+                </div>
+                <div class="card-meta">
+                    <span class="status-badge status-active">چالاک</span>
+                    <div class="card-actions">
+                        <button class="btn btn-warning">
+                            <span>✏️</span>
+                            دەستکاری
+                        </button>
+                    </div>
+                </div>
+            `;
+            grid.appendChild(card);
+        });
+    }
+    
+    // نیشاندانی چالاکییە دوایییەکان
+    renderRecentActivity() {
+        const container = document.getElementById('recentActivity');
+        container.innerHTML = '';
+        
+        const activities = [
+            { type: 'admin', text: 'بەڕێوەبەری نوێ زیادکرا', time: '٢ خولەک پێش ئێستا' },
+            { type: 'teacher', text: 'مامۆستای نوێ تۆمارکرا', time: '١٠ خولەک پێش ئێستا' },
+            { type: 'student', text: 'خوێندکاری نوێ زیادکرا', time: '٣٠ خولەک پێش ئێستا' },
+            { type: 'staff', text: 'ستافی نوێ زیادکرا', time: '١ کاتژمێر پێش ئێستا' }
+        ];
+        
+        activities.forEach(activity => {
+            const card = document.createElement('div');
+            card.className = `card ${activity.type}`;
+            card.innerHTML = `
+                <div class="card-header">
+                    <div class="card-avatar ${activity.type}">${this.getActivityIcon(activity.type)}</div>
+                    <div>
+                        <h3 class="card-title">${activity.text}</h3>
+                        <div class="card-subtitle">${activity.time}</div>
+                    </div>
+                </div>
+            `;
+            container.appendChild(card);
+        });
+    }
+    
+    // پۆلێکی کارت بۆ جۆری ستاف
+    getStaffCardClass(staffType) {
+        const classMap = {
+            'مامۆستا': 'teacher',
+            'بەڕێوەبەر': 'admin',
+            'یاریدەدەر': 'assistant',
+            'کارمەند': 'worker',
+            'تەکنیسێن': 'staff',
+            'پارێزەر': 'worker',
+            'پاککەرەوە': 'worker'
+        };
+        return classMap[staffType] || 'staff';
+    }
+    
+    // پۆلێکی ئەڤاتار بۆ جۆری ستاف
+    getStaffAvatarClass(staffType) {
+        const classMap = {
+            'مامۆستا': 'teacher',
+            'بەڕێوەبەر': 'admin',
+            'یاریدەدەر': 'assistant',
+            'کارمەند': 'worker',
+            'تەکنیسێن': 'staff',
+            'پارێزەر': 'worker',
+            'پاککەرەوە': 'worker'
+        };
+        return classMap[staffType] || 'staff';
+    }
+    
+    // پۆلێکی بار
+    getStatusClass(status) {
+        const classMap = {
+            'active': 'status-active',
+            'inactive': 'status-inactive',
+            'vacation': 'status-warning'
+        };
+        return classMap[status] || 'status-inactive';
+    }
+    
+    // دەقی بار
+    getStatusText(status) {
+        const textMap = {
+            'active': 'چالاک',
+            'inactive': 'نەچالاک',
+            'vacation': 'پشوو'
+        };
+        return textMap[status] || 'نەچالاک';
+    }
+    
+    // ئایکۆنی چالاکی
+    getActivityIcon(type) {
+        const iconMap = {
+            'admin': '👨‍💼',
+            'teacher': '👨‍🏫',
+            'student': '👨‍🎓',
+            'staff': '👥'
+        };
+        return iconMap[type] || '📝';
+    }
+    
+    // ڕێکخستنی مووچە
+    formatSalary(salary) {
+        return new Intl.NumberFormat('ar-IQ').format(salary);
+    }
+    
+    // نوێکردنەوەی ئامارەکان
+    updateStats() {
+        document.getElementById('totalAdmins').textContent = this.admins.length;
+        document.getElementById('totalTeachers').textContent = this.teachers.length;
+        document.getElementById('totalStudents').textContent = this.students.length;
+        document.getElementById('totalStaff').textContent = this.staff.length;
+    }
+    
+    // نوێکردنەوەی ڕاپۆرتەکان
+    updateReports() {
+        document.getElementById('reportAdmins').textContent = this.admins.length;
+        document.getElementById('reportActiveAdmins').textContent = this.admins.filter(a => a.status === 'active').length;
+        document.getElementById('reportInactiveAdmins').textContent = this.admins.filter(a => a.status === 'inactive').length;
+        document.getElementById('reportAdminDepts').textContent = [...new Set(this.admins.map(a => a.department))].length;
+        
+        document.getElementById('reportTeachers').textContent = this.teachers.length;
+        document.getElementById('reportTeacherSubjects').textContent = [...new Set(this.teachers.map(t => t.subject))].length;
+        document.getElementById('reportTeacherExperience').textContent = this.teachers.reduce((sum, t) => sum + t.experience, 0);
+        
+        document.getElementById('reportStudents').textContent = this.students.length;
+        document.getElementById('reportStudentGrades').textContent = [...new Set(this.students.map(s => s.grade))].length;
+        document.getElementById('reportStudentClasses').textContent = [...new Set(this.students.map(s => s.class))].length;
+        
+        document.getElementById('reportStaff').textContent = this.staff.length;
+        document.getElementById('reportStaffTypes').textContent = [...new Set(this.staff.map(s => s.type))].length;
+        document.getElementById('reportStaffDepts').textContent = [...new Set(this.staff.map(s => s.department))].length;
+    }
+    
+    // ڕێکخستنی گوێگرەکان
+    setupEventListeners() {
+        // گەڕان بۆ بەڕێوەبەرەکان
+        document.getElementById('searchAdmins').addEventListener('input', () => {
+            this.renderAdmins();
+        });
+        document.getElementById('filterAdminDept').addEventListener('change', () => {
+            this.renderAdmins();
+        });
+        
+        // گەڕان بۆ مامۆستایان
+        document.getElementById('searchTeachers').addEventListener('input', () => {
+            this.renderTeachers();
+        });
+        document.getElementById('filterTeacherSubject').addEventListener('change', () => {
+            this.renderTeachers();
+        });
+        
+        // گەڕان بۆ خوێندکاران
+        document.getElementById('searchStudents').addEventListener('input', () => {
+            this.renderStudents();
+        });
+        document.getElementById('filterStudentGrade').addEventListener('change', () => {
+            this.renderStudents();
+        });
+        document.getElementById('filterStudentClass').addEventListener('change', () => {
+            this.renderStudents();
+        });
+        
+        // گەڕان بۆ ستاف
+        document.getElementById('searchStaff').addEventListener('input', () => {
+            this.renderStaff();
+        });
+        document.getElementById('filterStaffType').addEventListener('change', () => {
+            this.renderStaff();
+        });
+        document.getElementById('filterStaffDept').addEventListener('change', () => {
+            this.renderStaff();
+        });
+    }
+    
+    // نوێکردنەوەی بەروار
+    updateDate() {
+        const now = new Date();
+        const options = { 
+            year: 'numeric', 
+            month: 'long', 
+            day: 'numeric',
+            weekday: 'long'
+        };
+        const formatter = new Intl.DateTimeFormat('ku-Arab', options);
+        const formattedDate = formatter.format(now);
+        document.getElementById('currentDate').textContent = formattedDate;
+    }
+    
+    // دروستکردنی ڕاپۆرتی گشتی
+    generateOverallReport() {
+        let report = `ڕاپۆرتی گشتی قوتابخانە - ${new Date().toLocaleDateString('ku-Arab')}\n\n`;
+        
+        report += `=== بەڕێوەبەرەکان ===\n`;
+        report += `کۆی گشتی: ${this.admins.length}\n`;
+        report += `چالاک: ${this.admins.filter(a => a.status === 'active').length}\n`;
+        report += `نەچالاک: ${this.admins.filter(a => a.status === 'inactive').length}\n\n`;
+        
+        report += `=== مامۆستایان ===\n`;
+        report += `کۆی گشتی: ${this.teachers.length}\n`;
+        report += `بەشەکان: ${[...new Set(this.teachers.map(t => t.subject))].length}\n\n`;
+        
+        report += `=== خوێندکاران ===\n`;
+        report += `کۆی گشتی: ${this.students.length}\n`;
+        report += `پۆلەکان: ${[...new Set(this.students.map(s => s.grade))].length}\n\n`;
+        
+        report += `=== ستاف ===\n`;
+        report += `کۆی گشتی: ${this.staff.length}\n`;
+        report += `جۆرەکان: ${[...new Set(this.staff.map(s => s.type))].length}\n`;
+        
+        this.downloadReport(report, 'overall_report.txt');
+    }
+    
+    // هێنانەوەی هەموو زانیارییەکان
+    exportAllData() {
+        const allData = {
+            admins: this.admins,
+            teachers: this.teachers,
+            students: this.students,
+            staff: this.staff,
+            classes: this.classes,
+            exportDate: new Date().toISOString()
+        };
+        
+        const dataStr = JSON.stringify(allData, null, 2);
+        const dataBlob = new Blob([dataStr], {type: 'application/json'});
+        const url = URL.createObjectURL(dataBlob);
+        const link = document.createElement('a');
+        link.href = url;
+        link.download = 'school_data_export.json';
+        link.click();
+        URL.revokeObjectURL(url);
+    }
+    
+    // داگرتنی ڕاپۆرت
+    downloadReport(content, filename) {
+        const blob = new Blob([content], {type: 'text/plain'});
+        const url = URL.createObjectURL(blob);
+        const link = document.createElement('a');
+        link.href = url;
+        link.download = filename;
+        link.click();
+        URL.revokeObjectURL(url);
+    }
+}
+
+// دروستکردنی سیستەمی بەڕێوەبردنی قوتابخانە
+const schoolSystem = new SchoolManagementSystem();
+
+// فەنکشنی پێشنیاری پۆستەکان
+function updateStaffRoleSuggestions() {
+    const staffType = document.getElementById('staffType').value;
+    const roleInput = document.getElementById('staffRole');
+    const datalist = document.getElementById('roleSuggestions');
+    
+    // پاککردنەوەی پێشنیارە کۆنەکان
+    datalist.innerHTML = '';
+    
+    const suggestions = {
+        'مامۆستا': [
+            'مامۆستای زانست',
+            'مامۆستای ریاضی',
+            'مامۆستای کوردی',
+            'مامۆستای ئینگلیزی',
+            'مامۆستای مێژوو',
+            'مامۆستای جیۆگرافیا'
+        ],
+        'بەڕێوەبەر': [
+            'بەڕێوەبەری قوتابخانە',
+            'جێبەڕێوەبەر',
+            'بەڕێوەبەری پەیمانگا',
+            'سەرپەرشتیار'
+        ],
+        'یاریدەدەر': [
+            'یاریدەدەری ئەدمین',
+            'یاریدەدەری پەروەردەیی',
+            'یاریدەدەری مامۆستا',
+            'یاریدەدەری خوێندکاران'
+        ],
+        'کارمەند': [
+            'کارمەندی پشتیوانی',
+            'کارمەندی ئۆفیس',
+            'کارمەندی هەولێر'
+        ],
+        'تەکنیسێن': [
+            'تەکنیسێنی کۆمپیوتەر',
+            'تەکنیسێنی تەکنیکی',
+            'تەکنیسێنی ئامێرەکان'
+        ],
+        'پارێزەر': [
+            'پارێزەری قوتابخانە',
+            'پارێزەری دەرگا',
+            'پارێزەری شەوانە'
+        ],
+        'پاککەرەوە': [
+            'پاککەرەوە',
+            'خاوێنکار',
+            'کارمەندی پاککردنەوە'
+        ]
+    };
+    
+    if (staffType && suggestions[staffType]) {
+        suggestions[staffType].forEach(suggestion => {
+            const option = document.createElement('option');
+            option.value = suggestion;
+            datalist.appendChild(option);
+        });
+        roleInput.placeholder = `نموونە: ${suggestions[staffType][0]}`;
+    } else {
+        roleInput.placeholder = "ناوی پۆست بنووسە";
+    }
+}
+
+// فەنکشنی گۆڕینی بەش
+function switchSection(sectionName) {
+    // لێکردنەوەی هەموو بەشەکان
+    document.querySelectorAll('.nav-item').forEach(item => {
+        item.classList.remove('active');
+    });
+    document.querySelectorAll('.section-content').forEach(content => {
+        content.classList.remove('active');
+    });
+    
+    // چالاککردنی بەشە هەڵبژێردراوەکە
+    event.target.classList.add('active');
+    document.getElementById(sectionName + 'Section').classList.add('active');
+    
+    // نوێکردنەوەی ناوەڕۆک
+    schoolSystem.renderAllContent();
+    
+    // نوێکردنەوەی سەرناو
+    updatePageTitle(sectionName);
+}
+
+// نوێکردنەوەی سەرناوی پەڕە
+function updatePageTitle(sectionName) {
+    const titles = {
+        'dashboard': 'داشبۆردی بەڕێوەبەری',
+        'admins': 'بەڕێوەبردنی بەڕێوەبەرەکان',
+        'teachers': 'بەڕێوەبردنی مامۆستایان',
+        'students': 'بەڕێوەبردنی خوێندکاران',
+        'staff': 'بەڕێوەبردنی ستاف',
+        'classes': 'بەڕێوەبردنی پەیمانگاکان',
+        'reports': 'ڕاپۆرت و ئامار'
+    };
+    
+    const subtitles = {
+        'dashboard': 'بینینی ئامار و چالاکییەکان',
+        'admins': 'بەڕێوەبردنی تیمی بەڕێوەبەرایەتی',
+        'teachers': 'بەڕێوەبردنی مامۆستایانی قوتابخانە',
+        'students': 'بەڕێوەبردنی خوێندکارانی قوتابخانە',
+        'staff': 'بەڕێوەبردنی هەموو جۆرە ستافێک',
+        'classes': 'بەڕێوەبردنی پەیمانگاکان',
+        'reports': 'ڕاپۆرت و ئاماری تەواو'
+    };
+    
+    document.getElementById('pageTitle').textContent = titles[sectionName] || 'پانێڵی بەڕێوەبەری';
+    document.getElementById('pageSubtitle').textContent = subtitles[sectionName] || 'ڕۆژێکی باش';
+}
+
+// فەنکشنی مۆدال
+function openModal(modalId) {
+    document.getElementById(modalId).style.display = 'flex';
+}
+
+function closeModal(modalId) {
+    document.getElementById(modalId).style.display = 'none';
+    document.querySelectorAll('form').forEach(form => form.reset());
+    schoolSystem.currentEditId = null;
+    schoolSystem.currentEditType = null;
+}
+
+// فەنکشنی زیادکردن/دەستکاری بەڕێوەبەر
+document.getElementById('adminForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    
+    const adminData = {
+        name: document.getElementById('adminName').value,
+        role: document.getElementById('adminRole').value,
+        department: document.getElementById('adminDepartment').value,
+        avatar: document.getElementById('adminAvatar').value,
+        phone: document.getElementById('adminPhone').value,
+        email: document.getElementById('adminEmail').value,
+        bio: document.getElementById('adminBio').value,
+        status: document.getElementById('adminStatus').value
+    };
+    
+    if (schoolSystem.currentEditId && schoolSystem.currentEditType === 'admin') {
+        schoolSystem.updateAdmin(schoolSystem.currentEditId, adminData);
+        alert('زانیاری بەڕێوەبەر بە سەرکەوتوویی نوێکرایەوە!');
+    } else {
+        schoolSystem.addAdmin(adminData);
+        alert('بەڕێوەبەری نوێ بە سەرکەوتوویی زیادکرا!');
+    }
+    
+    closeModal('addAdminModal');
+});
+
+// فەنکشنی زیادکردن/دەستکاری مامۆستا
+document.getElementById('teacherForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    
+    const teacherData = {
+        name: document.getElementById('teacherName').value,
+        subject: document.getElementById('teacherSubject').value,
+        experience: parseInt(document.getElementById('teacherExperience').value),
+        avatar: document.getElementById('teacherAvatar').value,
+        phone: document.getElementById('teacherPhone').value,
+        email: document.getElementById('teacherEmail').value,
+        bio: document.getElementById('teacherBio').value
+    };
+    
+    if (schoolSystem.currentEditId && schoolSystem.currentEditType === 'teacher') {
+        // دەستکاری مامۆستا
+        const index = schoolSystem.teachers.findIndex(t => t.id === schoolSystem.currentEditId);
+        if (index !== -1) {
+            schoolSystem.teachers[index] = { ...schoolSystem.teachers[index], ...teacherData };
+            schoolSystem.saveAllData();
+            schoolSystem.renderTeachers();
+            alert('زانیاری مامۆستا بە سەرکەوتوویی نوێکرایەوە!');
+        }
+    } else {
+        schoolSystem.addTeacher(teacherData);
+        alert('مامۆستای نوێ بە سەرکەوتوویی زیادکرا!');
+    }
+    
+    closeModal('addTeacherModal');
+});
+
+// فەنکشنی زیادکردن/دەستکاری خوێندکار
+document.getElementById('studentForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    
+    const studentData = {
+        name: document.getElementById('studentName').value,
+        grade: document.getElementById('studentGrade').value,
+        class: document.getElementById('studentClass').value,
+        avatar: document.getElementById('studentAvatar').value,
+        phone: document.getElementById('studentPhone').value,
+        email: document.getElementById('studentEmail').value,
+        address: document.getElementById('studentAddress').value,
+        parent: document.getElementById('studentParent').value
+    };
+    
+    if (schoolSystem.currentEditId && schoolSystem.currentEditType === 'student') {
+        // دەستکاری خوێندکار
+        const index = schoolSystem.students.findIndex(s => s.id === schoolSystem.currentEditId);
+        if (index !== -1) {
+            schoolSystem.students[index] = { ...schoolSystem.students[index], ...studentData };
+            schoolSystem.saveAllData();
+            schoolSystem.renderStudents();
+            alert('زانیاری خوێندکار بە سەرکەوتوویی نوێکرایەوە!');
+        }
+    } else {
+        schoolSystem.addStudent(studentData);
+        alert('خوێندکاری نوێ بە سەرکەوتوویی زیادکرا!');
+    }
+    
+    closeModal('addStudentModal');
+});
+
+// فەنکشنی زیادکردن/دەستکاری ستاف
+document.getElementById('staffForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    
+    const staffData = {
+        name: document.getElementById('staffName').value,
+        type: document.getElementById('staffType').value,
+        role: document.getElementById('staffRole').value,
+        department: document.getElementById('staffDepartment').value,
+        avatar: document.getElementById('staffAvatar').value,
+        phone: document.getElementById('staffPhone').value,
+        email: document.getElementById('staffEmail').value,
+        salary: document.getElementById('staffSalary').value,
+        bio: document.getElementById('staffBio').value,
+        status: document.getElementById('staffStatus').value
+    };
+    
+    if (schoolSystem.currentEditId && schoolSystem.currentEditType === 'staff') {
+        schoolSystem.updateStaff(schoolSystem.currentEditId, staffData);
+        alert('زانیاری ستاف بە سەرکەوتوویی نوێکرایەوە!');
+    } else {
+        schoolSystem.addStaff(staffData);
+        alert('ستافی نوێ بە سەرکەوتوویی زیادکرا!');
+    }
+    
+    closeModal('addStaffModal');
+});
+
+// فەنکشنی دەستکاری بەڕێوەبەر
+function editAdmin(adminId) {
+    const admin = schoolSystem.admins.find(a => a.id === adminId);
+    if (admin) {
+        schoolSystem.currentEditId = adminId;
+        schoolSystem.currentEditType = 'admin';
+        
+        document.getElementById('adminName').value = admin.name;
+        document.getElementById('adminRole').value = admin.role;
+        document.getElementById('adminDepartment').value = admin.department;
+        document.getElementById('adminAvatar').value = admin.avatar;
+        document.getElementById('adminPhone').value = admin.phone;
+        document.getElementById('adminEmail').value = admin.email;
+        document.getElementById('adminBio').value = admin.bio;
+        document.getElementById('adminStatus').value = admin.status;
+        
+        document.getElementById('adminModalTitle').textContent = 'دەستکاری بەڕێوەبەر';
+        openModal('addAdminModal');
+    }
+}
+
+// فەنکشنی دەستکاری مامۆستا
+function editTeacher(teacherId) {
+    const teacher = schoolSystem.teachers.find(t => t.id === teacherId);
+    if (teacher) {
+        schoolSystem.currentEditId = teacherId;
+        schoolSystem.currentEditType = 'teacher';
+        
+        document.getElementById('teacherName').value = teacher.name;
+        document.getElementById('teacherSubject').value = teacher.subject;
+        document.getElementById('teacherExperience').value = teacher.experience;
+        document.getElementById('teacherAvatar').value = teacher.avatar;
+        document.getElementById('teacherPhone').value = teacher.phone;
+        document.getElementById('teacherEmail').value = teacher.email;
+        document.getElementById('teacherBio').value = teacher.bio;
+        
+        document.getElementById('teacherModalTitle').textContent = 'دەستکاری مامۆستا';
+        openModal('addTeacherModal');
+    }
+}
+
+// فەنکشنی دەستکاری خوێندکار
+function editStudent(studentId) {
+    const student = schoolSystem.students.find(s => s.id === studentId);
+    if (student) {
+        schoolSystem.currentEditId = studentId;
+        schoolSystem.currentEditType = 'student';
+        
+        document.getElementById('studentName').value = student.name;
+        document.getElementById('studentGrade').value = student.grade;
+        document.getElementById('studentClass').value = student.class;
+        document.getElementById('studentAvatar').value = student.avatar;
+        document.getElementById('studentPhone').value = student.phone;
+        document.getElementById('studentEmail').value = student.email;
+        document.getElementById('studentAddress').value = student.address;
+        document.getElementById('studentParent').value = student.parent;
+        
+        document.getElementById('studentModalTitle').textContent = 'دەستکاری خوێندکار';
+        openModal('addStudentModal');
+    }
+}
+
+// فەنکشنی دەستکاری ستاف
+function editStaff(staffId) {
+    const staff = schoolSystem.staff.find(s => s.id === staffId);
+    if (staff) {
+        schoolSystem.currentEditId = staffId;
+        schoolSystem.currentEditType = 'staff';
+        
+        document.getElementById('staffName').value = staff.name;
+        document.getElementById('staffType').value = staff.type;
+        document.getElementById('staffRole').value = staff.role;
+        document.getElementById('staffDepartment').value = staff.department;
+        document.getElementById('staffAvatar').value = staff.avatar;
+        document.getElementById('staffPhone').value = staff.phone;
+        document.getElementById('staffEmail').value = staff.email || '';
+        document.getElementById('staffSalary').value = staff.salary || '';
+        document.getElementById('staffBio').value = staff.bio;
+        document.getElementById('staffStatus').value = staff.status;
+        
+        document.getElementById('staffModalTitle').textContent = 'دەستکاری ستاف';
+        
+        // نوێکردنەوەی پێشنیارەکان
+        updateStaffRoleSuggestions();
+        
+        openModal('addStaffModal');
+    }
+}
+
+// داخستنی مۆدال کاتێک لە دەرەوەیە کرتە دەکەیت
+window.onclick = function(event) {
+    if (event.target.classList.contains('modal')) {
+        event.target.style.display = 'none';
+        document.querySelectorAll('form').forEach(form => form.reset());
+        schoolSystem.currentEditId = null;
+        schoolSystem.currentEditType = null;
+    }
+}
+
+// فەنکشنی گەڕان بۆ پەڕەی سەرەکی
+function goToIndex() {
+    window.location.href = 'index.html';
+}
+
+// فەنکشنی دروستکردنی ڕاپۆرتەکان
+function generateAdminReport() {
+    schoolSystem.generateOverallReport();
+}
+
+function generateTeacherReport() {
+    schoolSystem.generateOverallReport();
+}
+
+function generateStudentReport() {
+    schoolSystem.generateOverallReport();
+}
+
+function generateStaffReport() {
+    schoolSystem.generateOverallReport();
+}
+
+function generateOverallReport() {
+    schoolSystem.generateOverallReport();
+}
+
+function exportAllData() {
+    schoolSystem.exportAllData();
+}
+</script>
+</body>
+</html>
+<!DOCTYPE html>
+<html lang="ku">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ماڵپەڕی من</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        header {
+            text-align: center;
+            padding: 40px 0;
+            animation: fadeIn 1s ease-in;
+        }
+        
+        h1 {
+            font-size: 3rem;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        
+        h2 {
+            font-size: 1.8rem;
+            margin-bottom: 30px;
+            opacity: 0.9;
+        }
+        
+        .tab-container {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .tabs {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        
+        .tab-btn {
+            padding: 12px 24px;
+            background: rgba(255, 255, 255, 0.2);
+            border: none;
+            border-radius: 30px;
+            color: white;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .tab-btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: translateY(-2px);
+        }
+        
+        .tab-btn.active {
+            background: rgba(255, 255, 255, 0.9);
+            color: #764ba2;
+            font-weight: bold;
+        }
+        
+        .tab-content {
+            display: none;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            animation: fadeIn 0.5s ease-in;
+        }
+        
+        .tab-content.active {
+            display: block;
+        }
+        
+        .content-list {
+            list-style-type: none;
+        }
+        
+        .content-list li {
+            padding: 12px 15px;
+            margin-bottom: 8px;
+            background: rgba(255, 255, 255, 0.15);
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+        
+        .content-list li:hover {
+            background: rgba(255, 255, 255, 0.25);
+            transform: translateX(5px);
+        }
+        
+        .controls {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .control-btn {
+            padding: 10px 20px;
+            background: rgba(255, 255, 255, 0.2);
+            border: none;
+            border-radius: 30px;
+            color: white;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .control-btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: translateY(-2px);
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        @media (max-width: 768px) {
+            h1 { font-size: 2.2rem; }
+            h2 { font-size: 1.4rem; }
+            .tabs { justify-content: center; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>معروفان ماعرز</h1>
+            <h2>به‌ریوم‌بری قوتلخانه</h2>
+        </header>
+        
+        <div class="tab-container">
+            <div class="tabs">
+                <button class="tab-btn active" data-tab="tab1">دامنپژرد</button>
+                <button class="tab-btn" data-tab="tab2">به‌ریوم‌برهکان</button>
+                <button class="tab-btn" data-tab="tab3">ماهشستایل</button>
+                <button class="tab-btn" data-tab="tab4">خونتشکاران</button>
+                <button class="tab-btn" data-tab="tab5">سئاف</button>
+                <button class="tab-btn" data-tab="tab6">پهماشگلات</button>
+                <button class="tab-btn" data-tab="tab7">ربایزرتهکان</button>
+            </div>
+            
+            <div class="tab-content active" id="tab1">
+                <ul class="content-list">
+                    <li>ناوی یەکەم لە دامنپژرد</li>
+                    <li>ناوی دووەم لە دامنپژرد</li>
+                    <li>ناوی سێیەم لە دامنپژرد</li>
+                </ul>
+            </div>
+            
+            <div class="tab-content" id="tab2">
+                <ul class="content-list">
+                    <li>ناوی یەکەم لە به‌ریوم‌برهکان</li>
+                    <li>ناوی دووەم لە به‌ریوم‌برهکان</li>
+                    <li>ناوی سێیەم لە به‌ریوم‌برهکان</li>
+                </ul>
+            </div>
+            
+            <div class="tab-content" id="tab3">
+                <ul class="content-list">
+                    <li>ناوی یەکەم لە ماهشستایل</li>
+                    <li>ناوی دووەم لە ماهشستایل</li>
+                    <li>ناوی سێیەم لە ماهشستایل</li>
+                </ul>
+            </div>
+            
+            <div class="tab-content" id="tab4">
+                <ul class="content-list">
+                    <li>ناوی یەکەم لە خونتشکاران</li>
+                    <li>ناوی دووەم لە خونتشکاران</li>
+                    <li>ناوی سێیەم لە خونتشکاران</li>
+                </ul>
+            </div>
+            
+            <div class="tab-content" id="tab5">
+                <ul class="content-list">
+                    <li>ناوی یەکەم لە سئاف</li>
+                    <li>ناوی دووەم لە سئاف</li>
+                    <li>ناوی سێیەم لە سئاف</li>
+                </ul>
+            </div>
+            
+            <div class="tab-content" id="tab6">
+                <ul class="content-list">
+                    <li>ناوی یەکەم لە پهماشگلات</li>
+                    <li>ناوی دووەم لە پهماشگلات</li>
+                    <li>ناوی سێیەم لە پهماشگلات</li>
+                </ul>
+            </div>
+            
+            <div class="tab-content" id="tab7">
+                <ul class="content-list">
+                    <li>ناوی یەکەم لە ربایزرتهکان</li>
+                    <li>ناوی دووەم لە ربایزرتهکان</li>
+                    <li>ناوی سێیەم لە ربایزرتهکان</li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="controls">
+            <button class="control-btn" id="hideAll">شاردنەوەی هەموو</button>
+            <button class="control-btn" id="showAll">نیشاندانی هەموو</button>
+        </div>
+    </div>
+
+    <script>
+        // Tab functionality
+        const tabBtns = document.querySelectorAll('.tab-btn');
+        const tabContents = document.querySelectorAll('.tab-content');
+        
+        tabBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                // Remove active class from all buttons and contents
+                tabBtns.forEach(b => b.classList.remove('active'));
+                tabContents.forEach(c => c.classList.remove('active'));
+                
+                // Add active class to clicked button and corresponding content
+                btn.classList.add('active');
+                const tabId = btn.getAttribute('data-tab');
+                document.getElementById(tabId).classList.add('active');
+            });
+        });
+        
+        // Hide/Show all functionality
+        document.getElementById('hideAll').addEventListener('click', () => {
+            tabContents.forEach(content => {
+                content.style.display = 'none';
+            });
+            tabBtns.forEach(btn => {
+                btn.classList.remove('active');
+            });
+        });
+        
+        document.getElementById('showAll').addEventListener('click', () => {
+            tabContents.forEach(content => {
+                content.style.display = 'block';
+                content.classList.remove('active');
+            });
+            tabBtns.forEach(btn => {
+                btn.classList.remove('active');
+            });
+            // Activate first tab
+            tabBtns[0].classList.add('active');
+            tabContents[0].classList.add('active');
+        });
+    </script>
+</body>
+</html>
+<!DOCTYPE html>
+<html lang="ku">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>داشبۆرد</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #333;
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        
+        header {
+            text-align: center;
+            padding: 30px 0;
+            animation: fadeIn 1s ease-in;
+        }
+        
+        h1 {
+            font-size: 2.8rem;
+            margin-bottom: 15px;
+            color: white;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 25px;
+            margin-top: 30px;
+        }
+        
+        .card {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            padding: 25px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+        }
+        
+        .card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
+        }
+        
+        .card-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #f0f0f0;
+        }
+        
+        .card-icon {
+            font-size: 2.2rem;
+            margin-right: 15px;
+            width: 60px;
+            height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 12px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+        }
+        
+        .card-title {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #2d3748;
+        }
+        
+        .card-content {
+            list-style-type: none;
+        }
+        
+        .card-content li {
+            padding: 14px 18px;
+            margin-bottom: 10px;
+            background: rgba(102, 126, 234, 0.08);
+            border-radius: 12px;
+            border-left: 4px solid #667eea;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+        }
+        
+        .card-content li:hover {
+            background: rgba(102, 126, 234, 0.15);
+            transform: translateX(5px);
+        }
+        
+        .item-icon {
+            margin-right: 12px;
+            font-size: 1.2rem;
+        }
+        
+        .controls {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 40px;
+        }
+        
+        .control-btn {
+            padding: 14px 28px;
+            background: rgba(255, 255, 255, 0.9);
+            border: none;
+            border-radius: 50px;
+            color: #667eea;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .control-btn:hover {
+            background: white;
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+        }
+        
+        .hidden {
+            display: none;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .card {
+            animation: fadeIn 0.6s ease-in;
+        }
+        
+        @media (max-width: 768px) {
+            h1 { font-size: 2.2rem; }
+            .dashboard-grid {
+                grid-template-columns: 1fr;
+            }
+            .card-header {
+                flex-direction: column;
+                text-align: center;
+            }
+            .card-icon {
+                margin-right: 0;
+                margin-bottom: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>📊 داشبۆرد</h1>
+        </header>
+        
+        <div class="dashboard-grid">
+            <!-- کارتی بەڕێوەبەرەکان -->
+            <div class="card" id="managers-card">
+                <div class="card-header">
+                    <div class="card-icon">👨‍💼</div>
+                    <div class="card-title">بەڕێوەبەرەکان</div>
+                </div>
+               
+</body>
+</html>
