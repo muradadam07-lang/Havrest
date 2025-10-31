@@ -1,1866 +1,820 @@
 <!DOCTYPE html>
 <html lang="ku" dir="rtl">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title> aaaaaخوێندنگەی ئامادەی هەڵگوردی تێکەڵ</title>
-<style>
-:root {
-  --primary: #2c3e50;
-  --secondary: #3498db;
-  --accent: #e74c3c;
-  --gold: #f39c12;
-  --light: #ecf0f1;
-  --dark: #2c3e50;
-  --gradient: linear-gradient(135deg, #1e64e5 0%, #ffffff 100%);
-  --success: #2ecc71;
-  --warning: #f39c12;
-  --danger: #e74c3c;
-}
-
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-body {
-  font-family: 'Segoe UI', 'Tahoma', 'Geneva', 'Verdana', sans-serif;
-  line-height: 1.8;
-  color: var(--dark);
-  background: var(--gradient);
-  min-height: 100vh;
-  overflow-x: hidden;
-}
-
-/* Loading Screen */
-.loading-screen {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: var(--gradient);
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  z-index: 9999;
-  transition: opacity 0.5s ease, visibility 0.5s ease;
-}
-
-.loading-screen.fade-out {
-  opacity: 0;
-  visibility: hidden;
-}
-
-.logo-container {
-  text-align: center;
-  margin-bottom: 3rem;
-}
-
-.school-logo {
-  font-size: 4rem;
-  font-weight: 900;
-  background: linear-gradient(45deg, #fff, var(--gold), #fff);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  text-shadow: 0 10px 30px rgba(0,0,0,0.3);
-  margin-bottom: 1rem;
-  animation: glow 2s ease-in-out infinite alternate;
-}
-
-@keyframes glow {
-  from { 
-    text-shadow: 0 0 20px rgba(255,255,255,0.5),
-                 0 0 40px rgba(255,255,255,0.3);
-  }
-  to { 
-    text-shadow: 0 0 30px rgba(255,255,255,0.8),
-                 0 0 60px rgba(255,255,255,0.5),
-                 0 0 80px rgba(255,255,255,0.3);
-  }
-}
-
-.loading-text {
-  font-size: 1.5rem;
-  color: white;
-  font-weight: 600;
-  text-shadow: 0 2px 10px rgba(0,0,0,0.3);
-}
-
-.loading-bar {
-  width: 300px;
-  height: 6px;
-  background: rgba(255,255,255,0.3);
-  border-radius: 10px;
-  margin-top: 2rem;
-  overflow: hidden;
-  position: relative;
-}
-
-.loading-progress {
-  position: absolute;
-  top: 0;
-  left: -100%;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(90deg, #3498db, #e74c3c, #f39c12);
-  border-radius: 10px;
-  animation: loading 3s ease-in-out forwards;
-}
-
-@keyframes loading {
-  0% { left: -100%; }
-  50% { left: -30%; }
-  100% { left: 0; }
-}
-
-.background-animation {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  z-index: -2;
-  background: 
-    radial-gradient(circle at 20% 80%, rgba(52, 152, 219, 0.1) 0%, transparent 50%),
-    radial-gradient(circle at 80% 20%, rgba(231, 76, 60, 0.1) 0%, transparent 50%),
-    radial-gradient(circle at 40% 40%, rgba(243, 156, 18, 0.05) 0%, transparent 50%);
-  animation: backgroundShift 10s ease-in-out infinite;
-}
-
-@keyframes backgroundShift {
-  0%, 100% { transform: scale(1) rotate(0deg); }
-  50% { transform: scale(1.1) rotate(1deg); }
-}
-
-header {
-  background: rgba(255, 255, 255, 0.95);
-  backdrop-filter: blur(20px);
-  border-bottom: 3px solid var(--secondary);
-  padding: 1rem 3rem;
-  position: fixed;
-  top: 0;
-  width: 100%;
-  z-index: 1000;
-  box-shadow: 0 5px 30px rgba(0,0,0,0.1);
-}
-
-.header-content {
-  max-width: 1400px;
-  margin: 0 auto;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.logo {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-}
-
-.logo-img {
-  height: 80px;
-  width: auto;
-  filter: drop-shadow(0 4px 8px rgba(0,0,0,0.2));
-  transition: all 0.3s ease;
-}
-
-.logo-img:hover {
-  transform: scale(1.1) rotate(-5deg);
-}
-
-.logo-text {
-  font-size: 1.8rem;
-  font-weight: 800;
-  background: linear-gradient(45deg, var(--secondary), var(--accent));
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
-}
-
-nav {
-  display: flex;
-  gap: 0.5rem;
-}
-
-.nav-btn {
-  padding: 0.8rem 1.5rem;
-  background: rgba(255, 255, 255, 0.8);
-  border: 2px solid transparent;
-  border-radius: 50px;
-  color: var(--dark);
-  text-decoration: none;
-  font-weight: 700;
-  font-size: 1.1rem;
-  transition: all 0.3s ease;
-  position: relative;
-  overflow: hidden;
-}
-
-.nav-btn::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: -100%;
-  width: 100%;
-  height: 100%;
-  background: var(--gradient);
-  transition: left 0.3s ease;
-  z-index: -1;
-  border-radius: 50px;
-}
-
-.nav-btn:hover::before {
-  left: 0;
-}
-
-.nav-btn:hover {
-  color: white;
-  transform: translateY(-3px);
-  box-shadow: 0 8px 20px rgba(0,0,0,0.2);
-  border-color: var(--secondary);
-}
-
-.nav-btn.active {
-  background: var(--gradient);
-  color: white;
-  transform: translateY(-2px);
-  box-shadow: 0 5px 15px rgba(0,0,0,0.3);
-}
-
-.main-content {
-  padding-top: 120px;
-  min-height: 100vh;
-}
-
-.section {
-  display: none;
-  padding: 4rem 2rem;
-  max-width: 1400px;
-  margin: 0 auto;
-}
-
-.section.active {
-  display: block;
-  animation: slideUp 0.8s ease-out;
-}
-
-@keyframes slideUp {
-  from {
-    opacity: 0;
-    transform: translateY(50px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-.hero {
-  text-align: center;
-  padding: 6rem 2rem;
-  background: rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(10px);
-  border-radius: 30px;
-  margin: 2rem;
-  border: 2px solid rgba(255,255,255,0.2);
-  box-shadow: 0 20px 50px rgba(0,0,0,0.2);
-}
-
-.hero-title {
-  font-size: 4.5rem;
-  font-weight: 900;
-  margin-bottom: 2rem;
-  background: linear-gradient(45deg, #fff, var(--gold));
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  text-shadow: 0 10px 30px rgba(0,0,0,0.3);
-  line-height: 1.2;
-}
-
-.hero-subtitle {
-  font-size: 1.8rem;
-  color: var(--light);
-  margin-bottom: 3rem;
-  font-weight: 300;
-  text-shadow: 0 2px 10px rgba(0,0,0,0.3);
-}
-
-.cta-buttons {
-  display: flex;
-  gap: 2rem;
-  justify-content: center;
-  flex-wrap: wrap;
-}
-
-.cta-btn {
-  padding: 1.2rem 2.5rem;
-  background: var(--gradient);
-  border: none;
-  border-radius: 50px;
-  color: white;
-  font-size: 1.2rem;
-  font-weight: 700;
-  text-decoration: none;
-  transition: all 0.3s ease;
-  box-shadow: 0 8px 25px rgba(0,0,0,0.3);
-  position: relative;
-  overflow: hidden;
-}
-
-.cta-btn::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: -100%;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
-  transition: left 0.5s;
-}
-
-.cta-btn:hover::before {
-  left: 100%;
-}
-
-.cta-btn:hover {
-  transform: translateY(-5px) scale(1.05);
-  box-shadow: 0 15px 35px rgba(0,0,0,0.4);
-}
-
-.cta-btn.secondary {
-  background: rgba(255, 255, 255, 0.2);
-  backdrop-filter: blur(10px);
-  border: 2px solid rgba(255,255,255,0.3);
-}
-
-.section-title {
-  font-size: 3.5rem;
-  text-align: center;
-  margin-bottom: 4rem;
-  color: white;
-  font-weight: 800;
-  text-shadow: 0 5px 15px rgba(0,0,0,0.3);
-  position: relative;
-}
-
-.section-title::after {
-  content: '';
-  display: block;
-  width: 200px;
-  height: 6px;
-  background: linear-gradient(90deg, var(--secondary), var(--accent), var(--gold));
-  margin: 1.5rem auto;
-  border-radius: 3px;
-  animation: widthPulse 3s infinite;
-}
-
-@keyframes widthPulse {
-  0%, 100% { width: 200px; }
-  50% { width: 250px; }
-}
-
-/* نمرە Styles */
-.grades-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
-  gap: 2rem;
-  margin-top: 3rem;
-}
-
-.grade-category {
-  background: rgba(255, 255, 255, 0.95);
-  border-radius: 25px;
-  padding: 2.5rem;
-  box-shadow: 0 15px 40px rgba(0,0,0,0.1);
-  border: 2px solid rgba(255,255,255,0.3);
-  transition: all 0.3s ease;
-}
-
-.grade-category:hover {
-  transform: translateY(-10px);
-  box-shadow: 0 25px 60px rgba(0,0,0,0.2);
-}
-
-.grade-title {
-  font-size: 2.2rem;
-  color: var(--primary);
-  margin-bottom: 2rem;
-  text-align: center;
-  font-weight: 800;
-  background: linear-gradient(45deg, var(--primary), var(--secondary));
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  padding-bottom: 1rem;
-  border-bottom: 3px solid var(--gold);
-}
-
-.student-list {
-  list-style: none;
-}
-
-.student-item {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 1.2rem;
-  margin-bottom: 1rem;
-  background: white;
-  border-radius: 15px;
-  box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-  transition: all 0.3s ease;
-  border-left: 4px solid var(--secondary);
-}
-
-.student-item:hover {
-  transform: translateX(-10px);
-  box-shadow: 0 10px 25px rgba(0,0,0,0.15);
-}
-
-.student-info {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-}
-
-.student-avatar {
-  width: 50px;
-  height: 50px;
-  border-radius: 50%;
-  background: var(--gradient);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 1.2rem;
-  color: white;
-  font-weight: bold;
-}
-
-.student-details h4 {
-  font-size: 1.3rem;
-  color: var(--primary);
-  margin-bottom: 0.3rem;
-}
-
-.student-details p {
-  color: #666;
-  font-size: 0.9rem;
-}
-
-.grade-badge {
-  background: var(--gradient);
-  color: white;
-  padding: 0.8rem 1.5rem;
-  border-radius: 25px;
-  font-size: 1.4rem;
-  font-weight: 800;
-  min-width: 80px;
-  text-align: center;
-  box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-}
-
-.grade-excellent { background: linear-gradient(135deg, #2ecc71, #27ae60); }
-.grade-very-good { background: linear-gradient(135deg, #3498db, #2980b9); }
-.grade-good { background: linear-gradient(135deg, #f39c12, #e67e22); }
-.grade-average { background: linear-gradient(135deg, #e74c3c, #c0392b); }
-
-.stats-cards {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 1.5rem;
-  margin-bottom: 3rem;
-}
-
-.stat-card {
-  background: rgba(255, 255, 255, 0.95);
-  padding: 2rem;
-  border-radius: 20px;
-  text-align: center;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-  transition: all 0.3s ease;
-  border-top: 4px solid var(--secondary);
-}
-
-.stat-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 15px 40px rgba(0,0,0,0.2);
-}
-
-.stat-number {
-  font-size: 3rem;
-  font-weight: 900;
-  margin-bottom: 0.5rem;
-  background: linear-gradient(45deg, var(--secondary), var(--accent));
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
-
-.stat-label {
-  color: #666;
-  font-weight: 600;
-  font-size: 1.1rem;
-}
-
-/* ستاف Styles */
-.staff-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-  gap: 3rem;
-  margin-top: 3rem;
-}
-
-.admin-link-container {
-  text-align: center;
-  margin-top: 40px;
-}
-
-.admin-link-container .cta-btn.admin {
-  display: inline-flex;
-  align-items: center;
-  gap: 10px;
-  text-decoration: none;
-}
-
-.staff-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-  gap: 3rem;
-  margin-top: 3rem;
-}
-
-.staff-category {
-  background: rgba(255, 255, 255, 0.95);
-  border-radius: 25px;
-  padding: 2.5rem;
-  box-shadow: 0 15px 40px rgba(0,0,0,0.1);
-  border: 2px solid rgba(255,255,255,0.3);
-  transition: all 0.3s ease;
-}
-
-.staff-category:hover {
-  transform: translateY(-10px);
-  box-shadow: 0 25px 60px rgba(0,0,0,0.2);
-}
-
-.category-title {
-  font-size: 2.2rem;
-  color: var(--primary);
-  margin-bottom: 2rem;
-  text-align: center;
-  font-weight: 800;
-  background: linear-gradient(45deg, var(--primary), var(--secondary));
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  padding-bottom: 1rem;
-  border-bottom: 3px solid var(--gold);
-}
-
-.staff-card {
-  background: white;
-  padding: 2rem;
-  border-radius: 20px;
-  text-align: center;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-  border: 2px solid transparent;
-  transition: all 0.3s ease;
-  position: relative;
-  overflow: hidden;
-}
-
-.staff-card::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 4px;
-  background: var(--gradient);
-}
-
-.staff-card:hover {
-  transform: translateY(-8px) scale(1.02);
-  box-shadow: 0 20px 50px rgba(0,0,0,0.2);
-  border-color: var(--secondary);
-}
-
-.staff-avatar {
-  width: 120px;
-  height: 120px;
-  border-radius: 50%;
-  margin: 0 auto 1.5rem;
-  border: 4px solid transparent;
-  background: var(--gradient) border-box;
-  -webkit-mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0);
-  -webkit-mask-composite: xor;
-  mask-composite: exclude;
-  padding: 3px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 3rem;
-}
-
-.staff-name {
-  font-size: 1.6rem;
-  color: var(--primary);
-  margin-bottom: 0.5rem;
-  font-weight: 800;
-}
-
-.staff-role {
-  font-size: 1.3rem;
-  color: var(--secondary);
-  font-weight: 700;
-  margin-bottom: 1rem;
-}
-
-.staff-bio {
-  color: #666;
-  line-height: 1.6;
-  margin-bottom: 1.5rem;
-}
-
-/* دەربارە Styles */
-.about-content {
-  background: rgba(255, 255, 255, 0.95);
-  border-radius: 25px;
-  padding: 3rem;
-  box-shadow: 0 20px 50px rgba(0,0,0,0.1);
-  border: 2px solid rgba(255,255,255,0.3);
-  line-height: 2;
-  font-size: 1.2rem;
-}
-
-.about-text {
-  margin-bottom: 2rem;
-  color: var(--dark);
-  font-weight: 500;
-  text-align: justify;
-}
-
-.highlight {
-  background: linear-gradient(45deg, var(--secondary), var(--accent));
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  font-weight: 800;
-}
-
-.about-features {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 2rem;
-  margin: 3rem 0;
-}
-
-.feature-card {
-  background: white;
-  padding: 2rem;
-  border-radius: 20px;
-  text-align: center;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-  transition: all 0.3s ease;
-  border-top: 4px solid var(--secondary);
-}
-
-.feature-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 15px 40px rgba(0,0,0,0.2);
-}
-
-.feature-icon {
-  font-size: 3rem;
-  margin-bottom: 1rem;
-  background: var(--gradient);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
-
-.feature-title {
-  font-size: 1.5rem;
-  color: var(--primary);
-  margin-bottom: 1rem;
-  font-weight: 700;
-}
-
-.feature-desc {
-  color: #666;
-  line-height: 1.6;
-}
-
-.timeline {
-  position: relative;
-  max-width: 800px;
-  margin: 3rem auto;
-}
-
-.timeline::before {
-  content: '';
-  position: absolute;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 4px;
-  height: 100%;
-  background: var(--gradient);
-  border-radius: 2px;
-}
-
-.timeline-item {
-  background: white;
-  padding: 2rem;
-  margin: 2rem 0;
-  border-radius: 15px;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-  position: relative;
-  width: 45%;
-}
-
-.timeline-item:nth-child(odd) {
-  margin-right: 55%;
-}
-
-.timeline-item:nth-child(even) {
-  margin-left: 55%;
-}
-
-.timeline-year {
-  background: var(--gradient);
-  color: white;
-  padding: 0.5rem 1rem;
-  border-radius: 25px;
-  font-weight: 700;
-  position: absolute;
-  top: -15px;
-  left: 50%;
-  transform: translateX(-50%);
-}
-
-.timeline-content h4 {
-  color: var(--primary);
-  margin-bottom: 0.5rem;
-  font-size: 1.3rem;
-}
-
-.timeline-content p {
-  color: #666;
-  line-height: 1.6;
-}
-
-/* پەیوەندی Styles */
-.contact-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 2rem;
-  margin-top: 3rem;
-}
-
-.contact-card {
-  background: rgba(255, 255, 255, 0.95);
-  padding: 2.5rem;
-  border-radius: 20px;
-  text-align: center;
-  box-shadow: 0 15px 40px rgba(0,0,0,0.1);
-  border: 2px solid rgba(255,255,255,0.3);
-  transition: all 0.3s ease;
-}
-
-.contact-card:hover {
-  transform: translateY(-8px);
-  box-shadow: 0 25px 60px rgba(0,0,0,0.2);
-}
-
-.contact-icon {
-  font-size: 3rem;
-  margin-bottom: 1.5rem;
-  background: var(--gradient);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
-
-.contact-info {
-  font-size: 1.3rem;
-  color: var(--primary);
-  font-weight: 600;
-}
-
-footer {
-  background: rgba(44, 62, 80, 0.95);
-  backdrop-filter: blur(20px);
-  color: white;
-  text-align: center;
-  padding: 3rem 2rem;
-  margin-top: 6rem;
-  border-top: 3px solid var(--secondary);
-}
-
-.footer-content {
-  max-width: 1200px;
-  margin: 0 auto;
-}
-
-.footer-text {
-  font-size: 1.2rem;
-  margin-bottom: 1rem;
-  font-weight: 600;
-}
-
-.creator {
-  color: var(--gold);
-  font-weight: 800;
-}
-
-/* Responsive Design */
-@media (max-width: 768px) {
-  .header-content {
-    flex-direction: column;
-    gap: 1rem;
-  }
-  
-  .hero-title {
-    font-size: 2.8rem;
-  }
-  
-  .hero-subtitle {
-    font-size: 1.4rem;
-  }
-  
-  .section-title {
-    font-size: 2.5rem;
-  }
-  
-  .grades-grid {
-    grid-template-columns: 1fr;
-  }
-  
-  .staff-grid {
-    grid-template-columns: 1fr;
-  }
-  
-  .about-features {
-    grid-template-columns: 1fr;
-  }
-  
-  .stats-cards {
-    grid-template-columns: 1fr;
-  }
-  
-  .cta-buttons {
-    flex-direction: column;
-    align-items: center;
-  }
-  
-  .cta-btn {
-    width: 100%;
-    max-width: 300px;
-  }
-  
-  nav {
-    flex-wrap: wrap;
-    justify-content: center;
-  }
-  
-  .nav-btn {
-    font-size: 0.9rem;
-    padding: 0.6rem 1.2rem;
-  }
-  
-  .school-logo {
-    font-size: 2.5rem;
-  }
-  
-  .loading-text {
-    font-size: 1.2rem;
-  }
-  
-  .loading-bar {
-    width: 250px;
-  }
-  
-  .student-item {
-    flex-direction: column;
-    gap: 1rem;
-    text-align: center;
-  }
-  
-  .timeline::before {
-    left: 20px;
-  }
-  
-  .timeline-item {
-    width: calc(100% - 40px);
-    margin-left: 40px !important;
-    margin-right: 0 !important;
-  }
-  
-  .timeline-year {
-    left: -50px;
-    transform: none;
-  }
-}
-
-/* Floating Animation */
-@keyframes float {
-  0%, 100% { transform: translateY(0px); }
-  50% { transform: translateY(-20px); }
-}
-
-.floating {
-  animation: float 6s ease-in-out infinite;
-}
-
-/* Particle Animation */
-.particles {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  z-index: -1;
-  pointer-events: none;
-}
-
-.particle {
-  position: absolute;
-  background: rgba(255, 255, 255, 0.5);
-  border-radius: 50%;
-  animation: floatParticle 20s infinite linear;
-}
-
-@keyframes floatParticle {
-  0% { transform: translateY(100vh) rotate(0deg); }
-  100% { transform: translateY(-100vh) rotate(360deg); }
-}
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>خوێندنگەی ئامادەی هەڵگوردی تێکەڵ</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #1a5276;
+            --secondary: #3498db;
+            --accent: #e74c3c;
+            --gold: #f39c12;
+            --light: #ecf0f1;
+            --dark: #2c3e50;
+            --gradient: linear-gradient(135deg, #1a5276 0%, #3498db 100%);
+            --shadow: 0 10px 30px rgba(0,0,0,0.1);
+            --radius: 15px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.7;
+            color: var(--dark);
+            background: linear-gradient(135deg, #f5f7fa 0%, #e4e8ed 100%);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* Mobile Header */
+        .mobile-header {
+            background: var(--gradient);
+            color: white;
+            padding: 1rem;
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            box-shadow: 0 2px 20px rgba(0,0,0,0.2);
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+        }
+
+        .logo-img {
+            height: 50px;
+            width: 50px;
+            background: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            color: var(--primary);
+            font-weight: bold;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+
+        .logo-text {
+            font-size: 1.2rem;
+            font-weight: 800;
+            color: white;
+        }
+
+        .menu-toggle {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        /* Mobile Navigation */
+        .mobile-nav {
+            position: fixed;
+            top: 0;
+            right: -100%;
+            width: 80%;
+            height: 100vh;
+            background: white;
+            z-index: 1001;
+            transition: right 0.3s ease;
+            box-shadow: -5px 0 25px rgba(0,0,0,0.1);
+            padding: 2rem 1rem;
+        }
+
+        .mobile-nav.active {
+            right: 0;
+        }
+
+        .nav-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid var(--light);
+        }
+
+        .close-menu {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: var(--dark);
+            cursor: pointer;
+        }
+
+        .nav-items {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .nav-item {
+            padding: 1rem;
+            background: var(--light);
+            border-radius: var(--radius);
+            text-decoration: none;
+            color: var(--dark);
+            font-weight: 600;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+        }
+
+        .nav-item.active {
+            background: var(--gradient);
+            color: white;
+        }
+
+        .nav-item:hover {
+            transform: translateX(-5px);
+            background: var(--gradient);
+            color: white;
+        }
+
+        /* Main Content */
+        .main-content {
+            padding-top: 80px;
+            min-height: 100vh;
+            padding-bottom: 70px;
+        }
+
+        .section {
+            display: none;
+            padding: 1.5rem;
+        }
+
+        .section.active {
+            display: block;
+            animation: slideUp 0.5s ease-out;
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Hero Slider */
+        .hero-slider {
+            position: relative;
+            height: 300px;
+            border-radius: var(--radius);
+            overflow: hidden;
+            margin-bottom: 2rem;
+            box-shadow: var(--shadow);
+        }
+
+        .slides {
+            display: flex;
+            width: 300%;
+            height: 100%;
+            transition: transform 0.5s ease;
+        }
+
+        .slide {
+            width: 33.333%;
+            height: 100%;
+            background: var(--gradient);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 2rem;
+            color: white;
+            position: relative;
+        }
+
+        .slide-image {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: 1;
+        }
+
+        .slide-content {
+            position: relative;
+            z-index: 2;
+            background: rgba(0,0,0,0.6);
+            padding: 1.5rem;
+            border-radius: var(--radius);
+        }
+
+        .slide-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .slide-title {
+            font-size: 1.5rem;
+            font-weight: 800;
+            margin-bottom: 0.5rem;
+        }
+
+        .slide-text {
+            font-size: 1rem;
+            opacity: 0.9;
+        }
+
+        .slider-dots {
+            position: absolute;
+            bottom: 1rem;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 0.5rem;
+            z-index: 3;
+        }
+
+        .dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.5);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .dot.active {
+            background: white;
+            transform: scale(1.2);
+        }
+
+        /* Cards */
+        .card {
+            background: white;
+            border-radius: var(--radius);
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+            box-shadow: var(--shadow);
+            transition: all 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.15);
+        }
+
+        .card-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .card-icon {
+            width: 50px;
+            height: 50px;
+            background: var(--gradient);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.5rem;
+        }
+
+        .card-title {
+            font-size: 1.3rem;
+            color: var(--primary);
+            font-weight: 800;
+        }
+
+        /* Staff Grid */
+        .staff-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .staff-card {
+            background: white;
+            border-radius: var(--radius);
+            padding: 1rem;
+            text-align: center;
+            box-shadow: var(--shadow);
+            transition: all 0.3s ease;
+        }
+
+        .staff-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .staff-avatar {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: var(--gradient);
+            margin: 0 auto 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 2rem;
+            font-weight: bold;
+            overflow: hidden;
+        }
+
+        .staff-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .staff-name {
+            font-size: 1rem;
+            color: var(--primary);
+            font-weight: 800;
+            margin-bottom: 0.3rem;
+        }
+
+        .staff-role {
+            font-size: 0.8rem;
+            color: var(--secondary);
+            font-weight: 600;
+        }
+
+        /* News Items */
+        .news-list {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .news-item {
+            background: white;
+            border-radius: var(--radius);
+            overflow: hidden;
+            box-shadow: var(--shadow);
+        }
+
+        .news-image {
+            height: 120px;
+            background: var(--gradient);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .news-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .news-content {
+            padding: 1rem;
+        }
+
+        .news-title {
+            font-size: 1rem;
+            color: var(--primary);
+            font-weight: 800;
+            margin-bottom: 0.5rem;
+            line-height: 1.3;
+        }
+
+        .news-date {
+            color: #888;
+            font-size: 0.8rem;
+        }
+
+        /* Admin Login */
+        .admin-login {
+            position: fixed;
+            bottom: 80px;
+            left: 10px;
+            background: var(--gradient);
+            color: white;
+            padding: 10px 15px;
+            border-radius: var(--radius);
+            z-index: 1000;
+            box-shadow: var(--shadow);
+        }
+
+        .admin-login-btn {
+            background: white;
+            color: var(--primary);
+            border: none;
+            padding: 8px 15px;
+            border-radius: var(--radius);
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .admin-login-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        /* Bottom Navigation */
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background: white;
+            display: flex;
+            justify-content: space-around;
+            padding: 0.8rem 0;
+            box-shadow: 0 -2px 20px rgba(0,0,0,0.1);
+            z-index: 999;
+        }
+
+        .nav-tab {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-decoration: none;
+            color: #888;
+            transition: all 0.3s ease;
+            flex: 1;
+        }
+
+        .nav-tab.active {
+            color: var(--primary);
+        }
+
+        .nav-icon {
+            font-size: 1.3rem;
+            margin-bottom: 0.3rem;
+        }
+
+        .nav-label {
+            font-size: 0.7rem;
+            font-weight: 600;
+        }
+
+        /* Responsive */
+        @media (min-width: 768px) {
+            .mobile-header {
+                display: none;
+            }
+            
+            .bottom-nav {
+                display: none;
+            }
+            
+            .main-content {
+                padding-top: 20px;
+                padding-bottom: 20px;
+            }
+            
+            .hero-slider {
+                height: 400px;
+            }
+            
+            .slide-title {
+                font-size: 2rem;
+            }
+            
+            .slide-text {
+                font-size: 1.2rem;
+            }
+        }
+    </style>
 </head>
 <body>
-<!-- Loading Screen -->
-<div class="loading-screen" id="loadingScreen">
-  <div class="logo-container">
-    <div class="school-logo">خوێندنگەی ئامادەی هەڵگوردی تێکەڵ</div>
-    <div class="loading-text">چاوەڕوانبە...</div>
-  </div>
-  <div class="loading-bar">
-    <div class="loading-progress"></div>
-  </div>
-</div>
-
-<div class="background-animation"></div>
-<div class="particles" id="particles"></div>
-
-<header>
-  <div class="header-content">
-    <div class="logo">
-      <img src="assets/logo.png" alt="Logo" class="logo-img">
-      <div class="logo-text">خوێندنگەی ئامادەی هەڵگوردی تێکەڵ</div>
+    <!-- Admin Login -->
+    <div class="admin-login">
+        <button class="admin-login-btn" onclick="goToLogin()">
+            <i class="fas fa-cog"></i> چوونە ناو داشبۆرد
+        </button>
     </div>
-    <nav>
-      <a href="#home" class="nav-btn active" data-section="home">سەرەتا</a>
-      <a href="#about" class="nav-btn" data-section="about">دەربارە</a>
-      <a href="#staff" class="nav-btn" data-section="staff">ستاف</a>
-      <a href="#grades" class="nav-btn" data-section="grades">نمرە</a>
-      <a href="#contact" class="nav-btn" data-section="contact">هەواڵ</a>
+
+    <!-- Mobile Header -->
+    <header class="mobile-header">
+        <div class="header-content">
+            <div class="logo">
+                <div class="logo-img">🏫</div>
+                <div class="logo-text">خوێندنگەی ئامادەی هەڵگوردی تێکەڵ</div>
+            </div>
+            <button class="menu-toggle" id="menuToggle">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+    </header>
+
+    <!-- Mobile Navigation -->
+    <nav class="mobile-nav" id="mobileNav">
+        <div class="nav-header">
+            <h3>ناوەڕۆک</h3>
+            <button class="close-menu" id="closeMenu">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <div class="nav-items">
+            <a href="#home" class="nav-item active" data-section="home">
+                <i class="fas fa-home"></i>
+                سەرەتا
+            </a>
+            <a href="#about" class="nav-item" data-section="about">
+                <i class="fas fa-info-circle"></i>
+                دەربارە
+            </a>
+            <a href="#staff" class="nav-item" data-section="staff">
+                <i class="fas fa-users"></i>
+                ستاف
+            </a>
+            <a href="#news" class="nav-item" data-section="news">
+                <i class="fas fa-newspaper"></i>
+                هەواڵ
+            </a>
+        </div>
     </nav>
-  </div>
-</header>
 
-<div class="main-content">
-  <!-- ماڵەوە -->
-  <section id="home" class="section active">
-    <div class="hero floating">
-      <h1 class="hero-title">بەخێربێن بۆ خوێندنگەی ئامادەی هەڵگوردی تێکەڵ</h1>
-      <p class="hero-subtitle">پێشکەشکەری باشترین خوێندنی کوالیتی بە شێوازێکی مۆدێرن و پڕۆفێشنال</p>
-      <div class="cta-buttons">
-        <a href="#about" class="cta-btn" data-section="about">زیاتر بزانە</a>
-        <a href="#grades" class="cta-btn secondary" data-section="grades">بینینی نمرە</a>
-      </div>
-    </div>
-  </section>
-
-  <!-- دەربارە -->
-  <section id="about" class="section">
-    <h2 class="section-title">دەربارەی ئێمە</h2>
-    
-    <div class="about-content">
-      <p class="about-text">
-        <span class="highlight">خوێندنگەی ئامادەی هەڵگوردی تێکەڵ</span> لە ساڵی <span class="highlight">٢٠١٤</span>ەوە دامەزراوە وەکو ناوەندێکی زانستی و ئەکادیمی حکومی کاردەکات لەپێناو بنیادنانی کۆمەڵگایەکی پێشکەوتو سەردەمی.
-      </p>
-      
-      <p class="about-text">
-        ئێمە ئەرکی پێگەیاندنی تاکێکی هۆشیارو بەرپرسیارە لەروی بەها و ڕەوشتی و کۆمەڵایەتیەکان و ئاشناکردنی خوێندکارە لەگەڵ پێشکەوتنەکانی جیهانی کۆمپیوتەرو تەکنەلۆژیا.
-      </p>
-      
-      <p class="about-text">
-        ئەمەش لەڕێگەی هەموو ئەو وانە جۆراو جۆرانەی لە قوتابخانەکەمان دەخوێنرێت. دەمانەوێت ڕێنیشاندەرو ئاڕاستەکەری خوێندکارەکانمان بین بۆ ژیانێکی تەندروست و باشتر لە ئایندەدا.
-      </p>
-
-      <div class="about-features">
-        <div class="feature-card">
-          <div class="feature-icon">🎯</div>
-          <h3 class="feature-title">ئامانجەکان</h3>
-          <p class="feature-desc">پەروەردەکردنی نەوەیەکی زانای پێشکەوتوو و بەرپرسیار</p>
-        </div>
-        
-        <div class="feature-card">
-          <div class="feature-icon">💡</div>
-          <h3 class="feature-title">ڕێبوار</h3>
-          <p class="feature-desc">خوێندنی کوالیتی بە شێوازێکی مۆدێرن و پڕۆفێشنال</p>
-        </div>
-        
-        <div class="feature-card">
-          <div class="feature-icon">🌟</div>
-          <h3 class="feature-title">سەرکەوتن</h3>
-          <p class="feature-desc">نەوەیەکی سەرکەوتوو لە هەموو بوارەکانی ژیان</p>
-        </div>
-      </div>
-
-      <div class="timeline">
-        <div class="timeline-item">
-          <div class="timeline-year">٢٠١٤</div>
-          <div class="timeline-content">
-            <h4>دامەزراندن</h4>
-            <p>قوتابخانەکە دامەزرا و کارەکانی دەستیپێکرد</p>
-          </div>
-        </div>
-        
-        <div class="timeline-item">
-          <div class="timeline-year">٢٠١٦</div>
-          <div class="timeline-content">
-            <h4>گەورەبوون</h4>
-            <p>ژمارەی خوێندکاران زۆر بوو و پەیمانگا نوێیەکان کرایەوە</p>
-          </div>
-        </div>
-        
-        <div class="timeline-item">
-          <div class="timeline-year">٢٠٢٠</div>
-          <div class="timeline-content">
-            <h4>پێشکەوتن</h4>
-            <p>سیستەمی ئەلیکترۆنی و تەکنەلۆژیا نوێ خرایە ناو کار</p>
-          </div>
-        </div>
-        
-        <div class="timeline-item">
-          <div class="timeline-year">٢٠٢٤</div>
-          <div class="timeline-content">
-            <h4>ئامانجەکان</h4>
-            <p>گەیشتن بە ئاستێکی جیھانی لە بواری خوێندندا</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ستاف -->
-  <section id="staff" class="section">
-    <h2 class="section-title">ستافی پڕۆفێشنال</h2>
-    <div class="staff-grid">
-      <div class="staff-category">
-        <h3 class="category-title">بەڕێوەبەر</h3>
-        <div class="staff-card">
-          <div class="staff-avatar">👨‍💼</div>
-          <h4 class="staff-name">مەریوان مەغدێد</h4>
-          <p class="staff-role">بەڕێوەبەری قوتابخانە</p>
-          <p class="staff-bio">بە تەمەنی ١٠ ساڵ لە بوارەی خوێندنی باڵا کاردەکات</p>
-        </div>
-      </div>
-      
-      <div class="staff-category">
-        <h3 class="category-title">یەریدەدار</h3>
-        <div class="staff-card">
-          <div class="staff-avatar">👨‍💻</div>
-          <h4 class="staff-name">یەریدەدار عەبدوڵڵا</h4>
-          <p class="staff-role">یەریدەدار</p>
-          <p class="staff-bio">چاودێری شارەزا لە کاروباری قوتابخانە</p>
-        </div>
-      </div>
-      
-      <div class="staff-category">
-        <h3 class="category-title">Maker..</h3>
-        <div class="staff-card">
-          <div class="staff-avatar">👩‍🏫</div>
-          <h4 class="staff-name"> Havrest Adam</h4>
-          <p class="staff-role">Studiy</p>
-          <p class="staff-bio">  Making Web  </p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-
-
-  <div class="staff-category">
-        <h3 class="category-title">Maker..</h3>
-        <div class="staff-card">
-          <div class="staff-avatar">👩‍🏫</div>
-          <h4 class="staff-name"> Havrest Adam</h4>
-          <p class="staff-role">Studiy</p>
-          <p class="staff-bio">  Making Web  </p>
-        </div>
-      </div>
-    </div>
-  </section>
-   
-<!-- Hawall -->ڕووداوەکان و ڕووداوەکان
- <!-- هەواڵ و ڕووداوەکان -->
-  <section id="about" class="section">
-    <h2 class="section-title">ڕووداوەکان </h2>
-    
-    <div class="news-container">
-        <!-- ڕووداوەکان سەرەکی -->
-        <div class="main-news">
-            <div class="featured-news">
-                <div class="news-image-large" style="background-image: url('https://images.unsplash.com/photo-1523050854058-8df90110c9f1?ixlib=rb-4.0.3')"></div>
-                <div class="news-content-large">
-                    <span class="news-category">ڕووداوی سەرەکی</span>
-                    <h3 class="news-title-large">کۆنفرانسی زانستی ساڵانەی قوتابخانە</h3>
-                    <p class="news-excerpt-large">کۆنفرانسی زانستی ساڵانەی قوتابخانەکەمان لە ١٥ی کانوونی دووەم بەڕێوەدەچێت. هەموو قوتابیان و دایک و باوکان بانگێشت دەکرێن...</p>
-                    <div class="news-meta-large">
-                        <span class="news-date">٢٠٢٤-٠١-١٥</span>
-                        <span class="news-read-more">زیاتر بخوێنە →</span>
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Home Section -->
+        <section id="home" class="section active">
+            <!-- Hero Slider -->
+            <div class="hero-slider">
+                <div class="slides" id="slides">
+                    <div class="slide">
+                        <div class="slide-image" id="slide1Image"></div>
+                        <div class="slide-content">
+                            <div class="slide-icon">🎓</div>
+                            <h2 class="slide-title">بەخێربێن</h2>
+                            <p class="slide-text">بۆ خوێندنگەی ئامادەی هەڵگوردی تێکەڵ</p>
+                        </div>
+                    </div>
+                    <div class="slide">
+                        <div class="slide-image" id="slide2Image"></div>
+                        <div class="slide-content">
+                            <div class="slide-icon">⭐</div>
+                            <h2 class="slide-title">خوێندنی کوالیتی</h2>
+                            <p class="slide-text">باشترین خوێندن بە شێوازێکی مۆدێرن</p>
+                        </div>
+                    </div>
+                    <div class="slide">
+                        <div class="slide-image" id="slide3Image"></div>
+                        <div class="slide-content">
+                            <div class="slide-icon">🚀</div>
+                            <h2 class="slide-title">سەرکەوتن</h2>
+                            <p class="slide-text">ئامادەکردنی خوێندکار بۆ ئایندە</p>
+                        </div>
                     </div>
                 </div>
+                <div class="slider-dots">
+                    <div class="dot active" data-slide="0"></div>
+                    <div class="dot" data-slide="1"></div>
+                    <div class="dot" data-slide="2"></div>
+                </div>
             </div>
-        </div>
-        
-        <!-- هەواڵە لاوەکییەکان -->
-        <div class="side-news">
-            <div class="news-item">
-                <div class="news-image-small" style="background-image: url('https://images.unsplash.com/photo-1560472354-b33ff0c44a43?ixlib=rb-4.0.3')"></div>
-                <div class="news-content-small">
-                    <span class="news-category-small">دەستکەوت</span>
-                    <h4 class="news-title-small">خوێندکارانی ئێمە پلەی یەکەمیان بەدەستهێنا</h4>
-                    <div class="news-meta-small">
-                        <span class="news-date">٢٠٢٣-١٢-١٠</span>
+
+            <!-- Quick Info -->
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-icon">
+                        <i class="fas fa-info-circle"></i>
                     </div>
+                    <h3 class="card-title">زانیاری خێرا</h3>
                 </div>
+                <p>خوێندنگەی ئامادەی هەڵگوردی تێکەڵ - دامەزراوەیەکی پڕ سەرکەوتن</p>
             </div>
-            
-            <div class="news-item">
-                <div class="news-image-small" style="background-image: url('https://images.unsplash.com/photo-1582719471384-894fbb16e074?ixlib=rb-4.0.3')"></div>
-                <div class="news-content-small">
-                    <span class="news-category-small">ئەکادیمی</span>
-                    <h4 class="news-title-small">دەستپێکردنی کۆرسی نوێی تەکنەلۆژیا</h4>
-                    <div class="news-meta-small">
-                        <span class="news-date">٢٠٢٣-١١-٢٨</span>
+        </section>
+
+        <!-- About Section -->
+        <section id="about" class="section">
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-icon">
+                        <i class="fas fa-info-circle"></i>
                     </div>
+                    <h3 class="card-title">دەربارەی ئێمە</h3>
                 </div>
+                <p style="line-height: 1.8; margin-bottom: 1rem;">
+                    خوێندنگەی ئامادەی هەڵگوردی تێکەڵ لە ساڵی ٢٠١٤ەوە دامەزراوە وەکو ناوەندێکی زانستی و ئەکادیمی حکومی کاردەکات.
+                </p>
+                <p style="line-height: 1.8;">
+                    ئێمە ئەرکی پێگەیاندنی تاکێکی هۆشیارو بەرپرسیارە لەروی بەها و ڕەوشتی و کۆمەڵایەتیەکان.
+                </p>
             </div>
-            
-            <div class="news-item">
-                <div class="news-image-small" style="background-image: url('https://images.unsplash.com/photo-1540575467063-178a50c2df87?ixlib=rb-4.0.3')"></div>
-                <div class="news-content-small">
-                    <span class="news-category-small">ڕووداو</span>
-                    <h4 class="news-title-small">پێشبڕکێی وێنەکێشانی ساڵانە</h4>
-                    <div class="news-meta-small">
-                        <span class="news-date">٢٠٢٣-١١-٢٠</span>
+        </section>
+
+        <!-- Staff Section -->
+        <section id="staff" class="section">
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-icon">
+                        <i class="fas fa-users"></i>
                     </div>
+                    <h3 class="card-title">ستافی پڕۆفێشنال</h3>
+                </div>
+                <div class="staff-grid" id="staffGrid">
+                    <!-- Staff members will be loaded from localStorage -->
                 </div>
             </div>
-            
-            <div class="news-item">
-                <div class="news-image-small" style="background-image: url('https://images.unsplash.com/photo-1434030216411-0b793f4b4173?ixlib=rb-4.0.3')"></div>
-                <div class="news-content-small">
-                    <span class="news-category-small">دەستکەوت</span>
-                    <h4 class="news-title-small">مامۆستایانمان خەڵاتیان بردەوە</h4>
-                    <div class="news-meta-small">
-                        <span class="news-date">٢٠٢٣-١١-٠٥</span>
+        </section>
+
+        <!-- News Section -->
+        <section id="news" class="section">
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-icon">
+                        <i class="fas fa-newspaper"></i>
                     </div>
+                    <h3 class="card-title">هەواڵ و ڕووداوەکان</h3>
+                </div>
+                <div class="news-list" id="newsList">
+                    <!-- News items will be loaded from localStorage -->
                 </div>
             </div>
-        </div>
-    </div>
-    
-    <!-- هەموو هەواڵەکان -->
-    <div class="all-news-grid">
-        <div class="news-card">
-            <div class="news-card-image" style="background-image: url('https://images.unsplash.com/photo-1503676260728-1c00da094a0b?ixlib=rb-4.0.3')"></div>
-            <div class="news-card-content">
-                <span class="news-card-category">ئەکادیمی</span>
-                <h4 class="news-card-title">نوێکردنەوەی کتێبخانەی قوتابخانە</h4>
-                <p class="news-card-excerpt">کتێبخانەی قوتابخانەکەمان بە هەزاران کتێبی نوێ نوێ کرایەوە...</p>
-                <div class="news-card-meta">
-                    <span class="news-card-date">٢٠٢٣-١١-١٥</span>
-                </div>
-            </div>
-        </div>
-        
-        <div class="news-card">
-            <div class="news-card-image" style="background-image: url('https://images.unsplash.com/photo-1577896851231-70ef18881754?ixlib=rb-4.0.3')"></div>
-            <div class="news-card-content">
-                <span class="news-card-category">ڕووداو</span>
-                <h4 class="news-card-title">کۆبونەوەی دایک و باوکان</h4>
-                <p class="news-card-excerpt">کۆبونەوەی دایک و باوکان بۆ قوتابیانی پۆلی ١٠ و ١١ ئەنجام دەدرێت...</p>
-                <div class="news-card-meta">
-                    <span class="news-card-date">٢٠٢٣-١٠-٢٨</span>
-                </div>
-            </div>
-        </div>
-        
-        <div class="news-card">
-            <div class="news-card-image" style="background-image: url('https://images.unsplash.com/photo-1516321318423-f06f85e504b3?ixlib=rb-4.0.3')"></div>
-            <div class="news-card-content">
-                <span class="news-card-category">دەستکەوت</span>
-                <h4 class="news-card-title">پڕۆژەی زانستی سەرکەوتوو</h4>
-                <p class="news-card-excerpt">پڕۆژەی زانستی قوتابخانەکەمان پێشێلکاری لە پێشبڕکێی نێودەوڵەتی کرد...</p>
-                <div class="news-card-meta">
-                    <span class="news-card-date">٢٠٢٣-١٠-١٥</span>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
+        </section>
+    </main>
 
-<style>
-/* News Section Styles */
-#news {
-    background: rgba(255, 255, 255, 0.1);
-    backdrop-filter: blur(10px);
-    border-radius: 30px;
-    margin: 2rem;
-    padding: 3rem 2rem;
-    border: 2px solid rgba(255, 255, 255, 0.2);
-}
+    <!-- Bottom Navigation -->
+    <nav class="bottom-nav">
+        <a href="#home" class="nav-tab active" data-section="home">
+            <i class="fas fa-home nav-icon"></i>
+            <span class="nav-label">سەرەتا</span>
+        </a>
+        <a href="#about" class="nav-tab" data-section="about">
+            <i class="fas fa-info-circle nav-icon"></i>
+            <span class="nav-label">دەربارە</span>
+        </a>
+        <a href="#staff" class="nav-tab" data-section="staff">
+            <i class="fas fa-users nav-icon"></i>
+            <span class="nav-label">ستاف</span>
+        </a>
+        <a href="#news" class="nav-tab" data-section="news">
+            <i class="fas fa-newspaper nav-icon"></i>
+            <span class="nav-label">هەواڵ</span>
+        </a>
+    </nav>
 
-.news-container {
-    display: grid;
-    grid-template-columns: 2fr 1fr;
-    gap: 30px;
-    margin-bottom: 40px;
-}
+    <script>
+        function goToLogin() {
+            window.location.href = 'login.html';
+        }
 
-/* Featured News */
-.featured-news {
-    background: white;
-    border-radius: 20px;
-    overflow: hidden;
-    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
-    transition: all 0.3s ease;
-}
+        // Mobile Menu
+        const menuToggle = document.getElementById('menuToggle');
+        const mobileNav = document.getElementById('mobileNav');
+        const closeMenu = document.getElementById('closeMenu');
 
-.featured-news:hover {
-    transform: translateY(-10px);
-    box-shadow: 0 25px 60px rgba(0, 0, 0, 0.2);
-}
-
-.news-image-large {
-    height: 300px;
-    background-size: cover;
-    background-position: center;
-    position: relative;
-}
-
-.news-content-large {
-    padding: 30px;
-}
-
-.news-category {
-    background: linear-gradient(135deg, #667eea, #764ba2);
-    color: white;
-    padding: 8px 20px;
-    border-radius: 20px;
-    font-size: 0.9rem;
-    font-weight: 600;
-    display: inline-block;
-    margin-bottom: 20px;
-}
-
-.news-title-large {
-    font-size: 2rem;
-    color: #2c3e50;
-    margin-bottom: 20px;
-    line-height: 1.3;
-    font-weight: 700;
-}
-
-.news-excerpt-large {
-    color: #666;
-    line-height: 1.7;
-    font-size: 1.1rem;
-    margin-bottom: 25px;
-}
-
-.news-meta-large {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding-top: 20px;
-    border-top: 1px solid #eee;
-}
-
-.news-date {
-    color: #888;
-    font-size: 1rem;
-}
-
-.news-read-more {
-    color: #667eea;
-    font-weight: 600;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    font-size: 1.1rem;
-}
-
-.news-read-more:hover {
-    color: #764ba2;
-    transform: translateX(5px);
-}
-
-/* Side News */
-.side-news {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-}
-
-.news-item {
-    background: white;
-    border-radius: 15px;
-    overflow: hidden;
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
-    transition: all 0.3s ease;
-    display: flex;
-    height: 120px;
-}
-
-.news-item:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
-}
-
-.news-image-small {
-    width: 120px;
-    background-size: cover;
-    background-position: center;
-    flex-shrink: 0;
-}
-
-.news-content-small {
-    padding: 15px;
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-}
-
-.news-category-small {
-    background: linear-gradient(135deg, #28a745, #20c997);
-    color: white;
-    padding: 4px 12px;
-    border-radius: 15px;
-    font-size: 0.7rem;
-    font-weight: 600;
-    display: inline-block;
-    margin-bottom: 8px;
-}
-
-.news-title-small {
-    font-size: 0.9rem;
-    color: #2c3e50;
-    line-height: 1.3;
-    font-weight: 600;
-    margin-bottom: 8px;
-}
-
-.news-meta-small {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-/* All News Grid */
-.all-news-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 25px;
-    margin-top: 40px;
-}
-
-.news-card {
-    background: white;
-    border-radius: 15px;
-    overflow: hidden;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
-    transition: all 0.3s ease;
-}
-
-.news-card:hover {
-    transform: translateY(-8px);
-    box-shadow: 0 20px 45px rgba(0, 0, 0, 0.15);
-}
-
-.news-card-image {
-    height: 200px;
-    background-size: cover;
-    background-position: center;
-}
-
-.news-card-content {
-    padding: 20px;
-}
-
-.news-card-category {
-    background: linear-gradient(135deg, #ffc107, #fd7e14);
-    color: white;
-    padding: 6px 15px;
-    border-radius: 15px;
-    font-size: 0.8rem;
-    font-weight: 600;
-    display: inline-block;
-    margin-bottom: 15px;
-}
-
-.news-card-title {
-    font-size: 1.1rem;
-    color: #2c3e50;
-    margin-bottom: 10px;
-    line-height: 1.4;
-    font-weight: 600;
-}
-
-.news-card-excerpt {
-    color: #666;
-    line-height: 1.5;
-    font-size: 0.9rem;
-    margin-bottom: 15px;
-}
-
-.news-card-meta {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding-top: 15px;
-    border-top: 1px solid #eee;
-}
-
-.news-card-date {
-    color: #888;
-    font-size: 0.8rem;
-}
-
-/* Responsive Design */
-@media (max-width: 1024px) {
-    .news-container {
-        grid-template-columns: 1fr;
-        gap: 20px;
-    }
-    
-    .news-title-large {
-        font-size: 1.7rem;
-    }
-}
-
-@media (max-width: 768px) {
-    #news {
-        margin: 1rem;
-        padding: 2rem 1rem;
-    }
-    
-    .news-item {
-        height: auto;
-        flex-direction: column;
-    }
-    
-    .news-image-small {
-        width: 100%;
-        height: 100px;
-    }
-    
-    .all-news-grid {
-        grid-template-columns: 1fr;
-        gap: 20px;
-    }
-    
-    .news-title-large {
-        font-size: 1.5rem;
-    }
-}
-</style>
-
-<script>
-// News functionality
-document.addEventListener('DOMContentLoaded', function() {
-    // Add click events for read more
-    const readMoreLinks = document.querySelectorAll('.news-read-more');
-    readMoreLinks.forEach(link => {
-        link.addEventListener('click', function() {
-            const newsTitle = this.closest('.featured-news').querySelector('.news-title-large').textContent;
-            alert(`زیاتر دەخوێنرێتەوە دەربارەی: ${newsTitle}\n\nئەم هەواڵە بە وردەکاری لە پەڕەکەدا بڵاو دەکرێتەوە.`);
+        menuToggle.addEventListener('click', () => {
+            mobileNav.classList.add('active');
         });
-    });
-    
-    // Add hover effects for news items
-    const newsItems = document.querySelectorAll('.news-item, .news-card');
-    newsItems.forEach(item => {
-        item.addEventListener('click', function() {
-            const title = this.querySelector('h4').textContent;
-            alert(`هەواڵ: ${title}\n\nکلیک کراوە بۆ بینینی وردەکاری!`);
+
+        closeMenu.addEventListener('click', () => {
+            mobileNav.classList.remove('active');
         });
-    });
-});
-</script>
 
+        // Navigation
+        const navItems = document.querySelectorAll('.nav-item, .nav-tab, .bottom-nav .nav-tab');
+        const sections = document.querySelectorAll('.section');
 
-  <!-- نمرە -->
-  <section id="grades" class="section">
-    <h2 class="section-title">سیستەمی نمرە</h2>
-    
-    <div class="stats-cards">
-      <div class="stat-card">
-        <div class="stat-number">٩٥٪</div>
-        <div class="stat-label">تێکڕای نمرە</div>
-      </div>
-      <div class="stat-card">
-        <div class="stat-number">١٢٠</div>
-        <div class="stat-label">خوێندکار</div>
-      </div>
-      <div class="stat-card">
-        <div class="stat-number">٨٥٪</div>
-        <div class="stat-label">سەرکەوتن</div>
-      </div>
-      <div class="stat-card">
-        <div class="stat-number">١٠٠٪</div>
-        <div class="stat-label">بەشداربوون</div>
-      </div>
-    </div>
-
-    <div class="grades-grid">
-      <!-- ئاستی یەکەم -->
-      <div class="grade-category">
-        <h3 class="grade-title">ئاستی یەکەم</h3>
-        <ul class="student-list">
-          <li class="student-item">
-            <div class="student-info">
-              <div class="student-avatar">ک</div>
-              <div class="student-details">
-                <h4>ئارام ئاری مراد
-               </h4>
-                <p>پۆلی ١٠‌ی زانستی</p>
-              </div>
-            </div>
-            <div class="grade-badge grade-excellent">96</div>
-          </li>
-          <li class="student-item">
-            <div class="student-info">
-              <div class="student-avatar">س</div>
-              <div class="student-details">
-                <h4> هەفرێست ئادم مراد</h4>
-                <p>پۆلی ١٠‌ی زانستی</p>
-              </div>
-            </div>
-            <div class="grade-badge grade-very-good">95</div>
-          </li>
-          <li class="student-item">
-            <div class="student-info">
-              <div class="student-avatar">ع</div>
-              <div class="student-details">
-                <h4>جۆفانی جەبار </h4>
-                <p>پۆلی ١٠‌ی زانستی</p>
-              </div>
-            </div>
-            <div class="grade-badge grade-excellent">90</div>
-          </li>
-        </ul>
-      </div>
-
-      <!-- ئاستی دووەم -->
-      <div class="grade-category">
-        <h3 class="grade-title">ئاستی دووەم</h3>
-        <ul class="student-list">
-          <li class="student-item">
-            <div class="student-info">
-              <div class="student-avatar">م</div>
-              <div class="student-details">
-                <h4>مەریوان ئەحمەد</h4>
-                <p>پۆلی ١١‌ی زانستی</p>
-              </div>
-            </div>
-            <div class="grade-badge grade-excellent">٩٤</div>
-          </li>
-          <li class="student-item">
-            <div class="student-info">
-              <div class="student-avatar">ھ</div>
-              <div class="student-details">
-                <h4>ھەڤال کەریم</h4>
-                <p>پۆلی ١١‌ی زانستی</p>
-              </div>
-            </div>
-            <div class="grade-badge grade-very-good">٨٩</div>
-          </li>
-          <li class="student-item">
-            <div class="student-info">
-              <div class="student-avatar">ر</div>
-              <div class="student-details">
-                <h4>ڕۆژان عەلی</h4>
-                <p>پۆلی ١١‌ی زانستی</p>
-              </div>
-            </div>
-            <div class="grade-badge grade-good">٨٥</div>
-          </li>
-        </ul>
-      </div>
-
-      <!-- ئاستی سێیەم -->
-      <div class="grade-category">
-        <h3 class="grade-title">ئاستی سێیەم</h3>
-        <ul class="student-list">
-          <li class="student-item">
-            <div class="student-info">
-              <div class="student-avatar">ش</div>
-              <div class="student-details">
-                <h4>شەھەرزاد محەممەد</h4>
-                <p>پۆلی ١٢‌ی زانستی</p>
-              </div>
-            </div>
-            <div class="grade-badge grade-excellent">٩٧</div>
-          </li>
-          <li class="student-item">
-            <div class="student-info">
-              <div class="student-avatar">ب</div>
-              <div class="student-details">
-                <h4>بەختیار عەبدوڵڵا</h4>
-                <p>پۆلی ١٢‌ی زانستی</p>
-              </div>
-            </div>
-            <div class="grade-badge grade-very-good">٩١</div>
-          </li>
-          <li class="student-item">
-            <div class="student-info">
-              <div class="student-avatar">د</div>
-              <div class="student-details">
-                <h4>دلشاد حوسێن</h4>
-                <p>پۆلی ١٢‌ی زانستی</p>
-              </div>
-            </div>
-            <div class="grade-badge grade-excellent">٩٥</div>
-          </li>
-        </ul>
-      </div>
-    </div>
-  </section>
-
-  <!-- پەیوەندی -->
-<!-- هەواڵ و ڕووداوەکان -->
-<section id="contact" class="section" style="font-family: 'Poppins', sans-serif; background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%); padding: 40px 20px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.1);">
-    <h2 class="section-title" style="text-align: center; color: #ff6b6b; font-size: 32px; margin-bottom: 30px; text-shadow: 2px 2px 4px rgba(0,0,0,0.1);">ڕووداوەکان</h2>
-    
-    <div class="news-container" style="display: flex; flex-wrap: wrap; gap: 30px;">
-        <!-- ڕووداوەکان سەرەکی -->
-        <div class="main-news" style="flex: 1; min-width: 300px;">
-            <div class="featured-news" style="background: #fff; border-radius: 20px; overflow: hidden; box-shadow: 0 15px 35px rgba(0,0,0,0.1); transition: transform 0.3s ease;">
-                <div class="news-image-large" style="background-image: url('https://cdn.discordapp.com/attachments/1428786792655618170/1433365798348394586/IMG_2531.jpg?ex=69046d6c&is=69031bec&hm=8bfd0c734ed2114c02fbadac6277627af198f3a27b23934c87be51ddfe9c00b9&;">
-                    <div style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: linear-gradient(45deg, rgba(255,107,107,0.3), rgba(255,177,153,0.3));"></div>
-                </div>
-                <div class="news-content-large" style="padding: 30px; background: #fff;">
-                    <span class="news-category" style="color: #ff6b6b; font-weight: bold; font-size: 14px; background: #ffeaa7; padding: 5px 10px; border-radius: 20px;">ڕووداوی سەرەکی</span>
-                    <h3 class="news-title-large" style="font-size: 28px; margin: 15px 0; color: #2d3436;">کۆنفرانسی زانستی ساڵانەی قوتابخانە</h3>
-                    <p class="news-excerpt-large" style="font-size: 18px; color: #636e72; line-height: 1.6;">کۆنفرانسی زانستی ساڵانەی قوتابخانەکەمان لە ١٥ی کانوونی دووەم بەڕێوەدەچێت. هەموو قوتابیان و دایک و باوکان بانگێشت دەکرێن...</p>
-                    <div class="news-meta-large" style="display: flex; justify-content: space-between; margin-top: 20px;">
-                        <span class="news-date" style="color: #b2bec3; font-size: 14px;">٢٠٢٤-٠١-١٥</span>
-                        <span class="news-read-more" style="color: #ff6b6b; cursor: pointer; font-weight: bold; transition: color 0.3s;">زیاتر بخوێنە →</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-        
-        <!-- هەواڵە لاوەکییەکان -->
-        <div class="side-news" style="flex: 1; min-width: 300px; display: grid; grid-template-columns: 1fr; gap: 20px;">
-            <div class="news-item" style="display: flex; background: #fff; border-radius: 15px; box-shadow: 0 10px 25px rgba(0,0,0,0.1); overflow: hidden; transition: transform 0.3s ease; cursor: pointer;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
-                <div class="news-image-small" style="background-image: url('https://cdn.discordapp.com/attachments/770331576911134737/1433369013567881246/IMG_2533.jpg?ex=6904706b&is=69031eeb&hm=44054cda0fc207a0d8c79ef3763ae7e28862ebd9aff0e254ba734d9ee2cc1b56&'); background-size: cover; background-position: center; width: 120px; height: 120px;"></div>
-                <div class="news-content-small" style="padding: 20px; flex: 1;">
-                    <span class="news-category-small" style="color: #00b894; font-weight: bold; font-size: 12px; background: #55efc4; padding: 3px 8px; border-radius: 15px;">دەستکەوت</span>
-                    <h4 class="news-title-small" style="font-size: 18px; margin: 10px 0; color: #2d3436;">خوێندکارانی ئێمە پلەی یەکەمیان بەدەستهێنا</h4>
-                    <div class="news-meta-small">
-                        <span class="news-date" style="color: #b2bec3; font-size: 12px;">٢٠٢٣-١٢-١٠</span>
-                    </div>
-                </div>
-            </div>
+        function showSection(sectionId) {
+            sections.forEach(section => {
+                section.classList.remove('active');
+            });
             
-            <div class="news-item" style="display: flex; background: #fff; border-radius: 15px; box-shadow: 0 10px 25px rgba(0,0,0,0.1); overflow: hidden; transition: transform 0.3s ease; cursor: pointer;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
-                <div class="news-image-small" style="background-image: url('https://images.unsplash.com/photo-1517180102446-f3ece451e9d8?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80'); background-size: cover; background-position: center; width: 120px; height: 120px;"></div>
-                <div class="news-content-small" style="padding: 20px; flex: 1;">
-                    <span class="news-category-small" style="color: #00b894; font-weight: bold; font-size: 12px; background: #55efc4; padding: 3px 8px; border-radius: 15px;">ئەکادیمی</span>
-                    <h4 class="news-title-small" style="font-size: 18px; margin: 10px 0; color: #2d3436;">دەستپێکردنی کۆرسی نوێی تەکنەلۆژیا</h4>
-                    <div class="news-meta-small">
-                        <span class="news-date" style="color: #b2bec3; font-size: 12px;">٢٠٢٣-١١-٢٨</span>
-                    </div>
-                </div>
-            </div>
+            navItems.forEach(item => {
+                item.classList.remove('active');
+            });
             
-            <div class="news-item" style="display: flex; background: #fff; border-radius: 15px; box-shadow: 0 10px 25px rgba(0,0,0,0.1); overflow: hidden; transition: transform 0.3s ease; cursor: pointer;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
-                <div class="news-image-small" style="background-image: url('https://images.unsplash.com/photo-1554048612-b6a482dbe3c5?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80'); background-size: cover; background-position: center; width: 120px; height: 120px;"></div>
-                <div class="news-content-small" style="padding: 20px; flex: 1;">
-                    <span class="news-category-small" style="color: #00b894; font-weight: bold; font-size: 12px; background: #55efc4; padding: 3px 8px; border-radius: 15px;">ڕووداو</span>
-                    <h4 class="news-title-small" style="font-size: 18px; margin: 10px 0; color: #2d3436;">پێشبڕکێی وێنەکێشانی ساڵانە</h4>
-                    <div class="news-meta-small">
-                        <span class="news-date" style="color: #b2bec3; font-size: 12px;">٢٠٢٣-١١-٢٠</span>
-                    </div>
-                </div>
-            </div>
+            const targetSection = document.getElementById(sectionId);
+            if (targetSection) {
+                targetSection.classList.add('active');
+            }
             
-            <div class="news-item" style="display: flex; background: #fff; border-radius: 15px; box-shadow: 0 10px 25px rgba(0,0,0,0.1); overflow: hidden; transition: transform 0.3s ease; cursor: pointer;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
-                <div class="news-image-small" style="background-image: url('https://images.unsplash.com/photo-1522202176988-66273c2fd55f?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80'); background-size: cover; background-position: center; width: 120px; height: 120px;"></div>
-                <div class="news-content-small" style="padding: 20px; flex: 1;">
-                    <span class="news-category-small" style="color: #00b894; font-weight: bold; font-size: 12px; background: #55efc4; padding: 3px 8px; border-radius: 15px;">دەستکەوت</span>
-                    <h4 class="news-title-small" style="font-size: 18px; margin: 10px 0; color: #2d3436;">مامۆستایانمان خەڵاتیان بردەوە</h4>
-                    <div class="news-meta-small">
-                        <span class="news-date" style="color: #b2bec3; font-size: 12px;">٢٠٢٣-١١-٠٥</span>
+            const activeItems = document.querySelectorAll(`[data-section="${sectionId}"]`);
+            activeItems.forEach(item => {
+                item.classList.add('active');
+            });
+            
+            // Close mobile menu
+            mobileNav.classList.remove('active');
+        }
+
+        navItems.forEach(item => {
+            item.addEventListener('click', function(e) {
+                e.preventDefault();
+                const sectionId = this.getAttribute('data-section');
+                showSection(sectionId);
+            });
+        });
+
+        // Hero Slider
+        let currentSlide = 0;
+        const slides = document.getElementById('slides');
+        const dots = document.querySelectorAll('.dot');
+        const totalSlides = 3;
+
+        function showSlide(index) {
+            slides.style.transform = `translateX(-${index * 33.333}%)`;
+            
+            dots.forEach(dot => dot.classList.remove('active'));
+            dots[index].classList.add('active');
+            
+            currentSlide = index;
+        }
+
+        dots.forEach((dot, index) => {
+            dot.addEventListener('click', () => {
+                showSlide(index);
+            });
+        });
+
+        // Auto slide
+        setInterval(() => {
+            currentSlide = (currentSlide + 1) % totalSlides;
+            showSlide(currentSlide);
+        }, 5000);
+
+        // Load data from localStorage
+        function loadData() {
+            // Load slider images
+            for (let i = 1; i <= 3; i++) {
+                const savedImage = localStorage.getItem(`slide${i}Image`);
+                if (savedImage) {
+                    const slideImage = document.getElementById(`slide${i}Image`);
+                    const img = document.createElement('img');
+                    img.src = savedImage;
+                    img.style.width = '100%';
+                    img.style.height = '100%';
+                    img.style.objectFit = 'cover';
+                    slideImage.appendChild(img);
+                }
+            }
+
+            // Load staff
+            const savedStaff = localStorage.getItem('staffMembers');
+            if (savedStaff) {
+                const staffGrid = document.getElementById('staffGrid');
+                staffGrid.innerHTML = JSON.parse(savedStaff);
+            } else {
+                // Default staff
+                staffGrid.innerHTML = `
+                    <div class="staff-card">
+                        <div class="staff-avatar">م</div>
+                        <div class="staff-name">مەریوان مەغدێد</div>
+                        <div class="staff-role">بەڕێوەبەر</div>
                     </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    
-    <!-- هەموو هەواڵەکان -->
-    <div class="all-news-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 30px; margin-top: 50px;">
-        <div class="news-card" style="background: #fff; border-radius: 20px; box-shadow: 0 15px 35px rgba(0,0,0,0.1); overflow: hidden; transition: transform 0.3s ease; cursor: pointer;" onmouseover="this.style.transform='translateY(-10px)'" onmouseout="this.style.transform='translateY(0)'">
-            <div class="news-card-image" style="background-image: url('https://images.unsplash.com/photo-1481627834876-b7833e8f5570?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80'); background-size: cover; background-position: center; height: 220px; position: relative;">
-                <div style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: linear-gradient(45deg, rgba(255,107,107,0.2), rgba(255,177,153,0.2));"></div>
-            </div>
-            <div class="news-card-content" style="padding: 25px;">
-                <span class="news-card-category" style="color: #ff6b6b; font-weight: bold; font-size: 12px; background: #ffeaa7; padding: 5px 10px; border-radius: 20px;">ئەکادیمی</span>
-                <h4 class="news-card-title" style="font-size: 20px; margin: 15px 0; color: #2d3436;">نوێکردنەوەی کتێبخانەی قوتابخانە</h4>
-                <p class="news-card-excerpt" style="font-size: 16px; color: #636e72; line-height: 1.5;">کتێبخانەی قوتابخانەکەمان بە هەزاران کتێبی نوێ نوێ کرایەوە...</p>
-                <div class="news-card-meta" style="margin-top: 20px;">
-                    <span class="news-card-date" style="color: #b2bec3; font-size: 12px;">٢٠٢٣-١١-١٥</span>
-                </div>
-            </div>
-        </div>
-        
-        <div class="news-card" style="background: #fff; border-radius: 20px; box-shadow: 0 15px 35px rgba(0,0,0,0.1); overflow: hidden; transition: transform 0.3s ease; cursor: pointer;" onmouseover="this.style.transform='translateY(-10px)'" onmouseout="this.style.transform='translateY(0)'">
-            <div class="news-card-image" style="background-image: url(https://cdn.discordapp.com/attachments/770331576911134737/1433369401406525552/att.CGN6torfwGL0RZRb-oru46FMlJnxgbDZXqy2riHS-BA.jpg?ex=690470c8&is=69031f48&hm=dc210e537be42d635ea9c4137599a7333c84dd7b0942ff071a41778792742bb0">
-                <div style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: linear-gradient(45deg, rgba(255,107,107,0.2), rgba(255,177,153,0.2));"></div>
-            </div>
-            <div class="news-card-content" style="padding: 25px;">
-                <span class="news-card-category" style="color: #ff6b6b; font-weight: bold; font-size: 12px; background: #ffeaa7; padding: 5px 10px; border-radius: 20px;">ڕووداو</span>
-                <h4 class="news-card-title" style="font-size: 20px; margin: 15px 0; color: #2d3436;">کۆبونەوەی دایک و باوکان</h4>
-                <p class="news-card-excerpt" style="font-size: 16px; color: #636e72; line-height: 1.5;">کۆبونەوەی دایک و باوکان بۆ قوتابیانی پۆلی ١٠ و ١١ ئەنجام دەدرێت...</p>
-                <div class="news-card-meta" style="margin-top: 20px;">
-                    <span class="news-card-date" style="color: #b2bec3; font-size: 12px;">٢٠٢٣-١٠-٢٨</span>
-                </div>
-            </div>
-        </div>
-        
-        <div class="news-card" style="background: #fff; border-radius: 20px; box-shadow: 0 15px 35px rgba(0,0,0,0.1); overflow: hidden; transition: transform 0.3s ease; cursor: pointer;" onmouseover="this.style.transform='translateY(-10px)'" onmouseout="this.style.transform='translateY(0)'">
-            <div class="news-card-image" style="background-image: url('https://images.unsplash.com/photo-1532012197267-da84d127e765?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80'); background-size: cover; background-position: center; height: 220px; position: relative;">
-                <div style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: linear-gradient(45deg, rgba(255,107,107,0.2), rgba(255,177,153,0.2));"></div>
-            </div>
-            <div class="news-card-content" style="padding: 25px;">
-                <span class="news-card-category" style="color: #ff6b6b; font-weight: bold; font-size: 12px; background: #ffeaa7; padding: 5px 10px; border-radius: 20px;">دەستکەوت</span>
-                <h4 class="news-card-title" style="font-size: 20px; margin: 15px 0; color: #2d3436;">پڕۆژەی زانستی سەرکەوتوو</h4>
-                <p class="news-card-excerpt" style="font-size: 16px; color: #636e72; line-height: 1.5;">پڕۆژەی زانستی قوتابخانەکەمان پێشێلکاری لە پێشبڕکێی نێودەوڵەتی کرد...</p>
-                <div class="news-card-meta" style="margin-top: 20px;">
-                    <span class="news-card-date" style="color: #b2bec3; font-size: 12px;">٢٠٢
-<footer>
-  <div class="footer-content">
-    <p class="footer-text">© ٢٠٢٤ خوێندنگەی ئامادەی هەڵگوردی تێکەڵ</p>
-    <p class="footer-text">دروستکراوە لەلایەن <span class="creator">Havrest</span></p>
-  </div>
-</footer>
+                    <div class="staff-card">
+                        <div class="staff-avatar">ع</div>
+                        <div class="staff-name">عەبدوڵڵا</div>
+                        <div class="staff-role">یاریدەدار</div>
+                    </div>
+                     </div>
+                    <div class="staff-card">
+                        <div class="staff-avatar">H</div>
+                        <div class="staff-name">Havrest Adam</div>
+                        <div class="staff-role">Making The web</div>
+                    </div>
+                `;
+            }
 
-<script>
-// Loading Screen Functionality
-window.addEventListener('load', function() {
-  const loadingScreen = document.getElementById('loadingScreen');
-  
-  setTimeout(() => {
-    loadingScreen.classList.add('fade-out');
-    
-    setTimeout(() => {
-      loadingScreen.style.display = 'none';
-    }, 500);
-  }, 3000);
-});
+            // Load news
+            const savedNews = localStorage.getItem('newsItems');
+            if (savedNews) {
+                const newsList = document.getElementById('newsList');
+                newsList.innerHTML = JSON.parse(savedNews);
+            } else {
+                // Default news
+                newsList.innerHTML = `
+                    <div class="news-item">
+                        <div class="news-image"></div>
+                        <div class="news-content">
+                            <h4 class="news-title">کۆنفرانسی زانستی ساڵانە</h4>
+                            <div class="news-date">٢٠٢٤-٠١-١٥</div>
+                        </div>
+                    </div>
+                `;
+            }
+        }
 
-// Create floating particles
-function createParticles() {
-  const particlesContainer = document.getElementById('particles');
-  const particleCount = 30;
-  
-  for (let i = 0; i < particleCount; i++) {
-    const particle = document.createElement('div');
-    particle.className = 'particle';
-    
-    const size = Math.random() * 8 + 4;
-    const posX = Math.random() * 100;
-    const duration = Math.random() * 25 + 15;
-    const delay = Math.random() * 20;
-    
-    particle.style.width = `${size}px`;
-    particle.style.height = `${size}px`;
-    particle.style.left = `${posX}vw`;
-    particle.style.animationDuration = `${duration}s`;
-    particle.style.animationDelay = `${delay}s`;
-    particle.style.opacity = Math.random() * 0.4 + 0.1;
-    
-    particlesContainer.appendChild(particle);
-  }
-}
-
-// Navigation functionality
-document.addEventListener('DOMContentLoaded', function() {
-  createParticles();
-  
-  const navButtons = document.querySelectorAll('.nav-btn');
-  const sections = document.querySelectorAll('.section');
-  const ctaButtons = document.querySelectorAll('.cta-btn');
-  
-  function showSection(sectionId) {
-    sections.forEach(section => {
-      section.classList.remove('active');
-    });
-    
-    navButtons.forEach(btn => {
-      btn.classList.remove('active');
-    });
-    
-    const targetSection = document.getElementById(sectionId);
-    if (targetSection) {
-      targetSection.classList.add('active');
-    }
-    
-    const activeBtn = document.querySelector(`[data-section="${sectionId}"]`);
-    if (activeBtn) {
-      activeBtn.classList.add('active');
-    }
-  }
-  
-  navButtons.forEach(btn => {
-    btn.addEventListener('click', function(e) {
-      e.preventDefault();
-      const sectionId = this.getAttribute('data-section');
-      showSection(sectionId);
-      
-      history.pushState(null, null, `#${sectionId}`);
-    });
-  });
-  
-  ctaButtons.forEach(btn => {
-    btn.addEventListener('click', function(e) {
-      e.preventDefault();
-      const sectionId = this.getAttribute('data-section');
-      showSection(sectionId);
-      
-      history.pushState(null, null, `#${sectionId}`);
-    });
-  });
-  
-  function checkInitialHash() {
-    const hash = window.location.hash.substring(1);
-    if (hash && document.getElementById(hash)) {
-      showSection(hash);
-    }
-  }
-  
-  checkInitialHash();
-  
-  window.addEventListener('hashchange', function() {
-    const hash = window.location.hash.substring(1);
-    if (hash && document.getElementById(hash)) {
-      showSection(hash);
-    }
-  });
-});
-</script>
+        // Initialize
+        window.addEventListener('load', loadData);
+    </script>
 </body>
 </html>
